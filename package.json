@@ -1,23 +1,30 @@
 {
-  "name": "docs",
-  "version": "1.0.0",
-  "description": "人居环境微前端项目文档",
-  "main": "index.js",
+  "name": "living-environment-web",
+  "version": "0.0.0",
+  "description": "人居环境前端项目",
+  "private": true,
   "scripts": {
-    "docs:dev": "vitepress dev",
-    "docs:build": "vitepress build",
-    "docs:preview": "vitepress preview"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "element-plus": "^2.3.14",
-    "@szxc/components": "workspace:^"
+    "start": "lerna run start --parallel",
+    "doc": "lerna run docs:dev --scope docs",
+    "build": "lerna run build --parallel",
+    "clean": "rimraf node_modules **/*/node_modules",
+    "start:7000": "lerna run start --parallel --scope micro-framework",
+    "build:7000": "lerna run build --parallel --scope micro-framework",
+    "start:7001": "lerna run start --parallel --scope large-screen",
+    "build:7001": "lerna run build --parallel --scope large-screen",
+    "start:7002": "lerna run start --parallel --scope excrement-resource",
+    "build:7002": "lerna run build --parallel --scope excrement-resource",
+    "start:7004": "lerna run start --parallel --scope system-background",
+    "build:7004": "lerna run build --parallel --scope system-background",
+    "start:8000": "lerna run start --parallel --scope main-framework",
+    "build:8000": "lerna run build --parallel --scope main-framework",
+    "starts:8000": "lerna run start --parallel --scope main-framework --scope micro-framework --scope excrement-resource",
+    "start:8001": "lerna run start --parallel --scope cxgh-background"
   },
   "devDependencies": {
-    "vue": "^3.3.4",
-    "vitepress": "1.0.0-beta.3",
-    "vitepress-theme-demoblock": "^3.0.3"
-  }
+    "@lerna-lite/cli": "^1.11.1",
+    "@lerna-lite/run": "^1.11.1",
+    "rimraf": "^3.0.2"
+  },
+  "dependencies": {}
 }

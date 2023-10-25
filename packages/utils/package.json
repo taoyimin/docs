@@ -1,0 +1,11 @@
+{
+  "name": "@szxc/utils",
+  "version": "1.0.0",
+  "private": true,
+  "description": "通用工具库",
+  "main": "index.js",
+  "peerDependencies": {
+    "vue": ">=3.3.4"
+  },
+  "license": "ISC"
+}

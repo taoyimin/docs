@@ -1,0 +1,11 @@
+{
+  "name": "@szxc/apis",
+  "version": "1.0.0",
+  "private": true,
+  "description": "通用接口库",
+  "main": "index.js",
+  "license": "ISC",
+  "peerDependencies": {
+    "@szxc/http": "workspace:^"
+  }
+}

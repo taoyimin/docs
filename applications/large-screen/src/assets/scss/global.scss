@@ -1,0 +1,7 @@
+$primary-color: #333;
+
+$designHeight: 1080;
+
+@function height($px) {
+    @return calc(100 * $px / $designHeight)+vh;
+}
