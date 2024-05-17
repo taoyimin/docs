@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "lib": ["ESNext"],
+    "types": ["node", "vite/client"],
+    "allowJs": true
+  },
+  "include": ["**/*.config.*", "./typings/env.d.ts"],
+  "exclude": ["**/dist", "**/node_modules", "**/unpackage", "**/uni_modules"]
+}

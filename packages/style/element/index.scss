@@ -1,0 +1,187 @@
+@import "./theme.scss";
+@import "./dark.scss";
+
+html,
+body {
+  background: var(--custom-page-bg);
+}
+
+html body .el-icon {
+  outline: none;
+}
+
+// #nprogress .bar {
+//   background: var(--el-color-primary);
+// }
+
+html body .el-descriptions__title {
+  border-left: 5px solid var(--el-color-primary);
+}
+
+html body .el-button--primary {
+  --el-button-bg-color: var(--el-color-primary);
+  --el-button-border-color: var(--el-color-primary);
+  --el-button-hover-bg-color: var(--el-color-primary-light-1);
+  --el-button-hover-border-color: var(--el-color-primary-light-1);
+  --el-button-active-bg-color: var(--el-color-primary);
+  --el-button-active-border-color: var(--el-color-primary);
+}
+
+html body .el-button--primary.is-disabled {
+  --el-button-bg-color: var(--el-color-primary);
+  --el-button-border-color: var(--el-color-primary);
+  --el-button-hover-bg-color: var(--el-color-primary-light-1);
+  --el-button-hover-border-color: var(--el-color-primary-light-1);
+  --el-button-active-bg-color: var(--el-color-primary);
+  --el-button-active-border-color: var(--el-color-primary);
+  --el-button-disabled-bg-color: var(--el-color-primary-light-4);
+  --el-button-disabled-border-color: var(--el-color-primary-light-4);
+}
+
+html body .el-button--primary.is-disabled.is-plain {
+  color: var(--el-color-primary-light-5);
+  background-color: var(--el-color-primary-light-9);
+  border-color: var(--el-color-primary-light-8);
+}
+
+html body .el-button--primary.is-plain {
+  --el-button-bg-color: var(--el-color-primary-light-9);
+  --el-button-border-color: var(--el-color-primary-light-7);
+  --el-button-text-color: var(--el-color-primary);
+  --el-button-hover-text-color: var(--el-color-white);
+  --el-button-hover-bg-color: var(--el-color-primary-light-3);
+  --el-button-hover-border-color: var(--el-color-primary-light-3);
+  --el-button-active-bg-color: var(--el-color-primary-light-3);
+  --el-button-active-text-color: var(--el-color-white);
+  --el-button-active-border-color: var(--el-color-primary-light-3);
+}
+
+html
+  body
+  .el-tag--light:not(
+    html body .el-tag--success,
+    html body .el-tag--info,
+    html body .el-tag--warning,
+    html body .el-tag--danger
+  ),
+html
+  body
+  .el-tag--light:not(
+    html body .el-tag--success,
+    html body .el-tag--info,
+    html body .el-tag--warning,
+    html body .el-tag--danger
+  ) {
+  --el-tag-bg-color: var(--el-color-primary-light-9);
+  --el-tag-border-color: var(--el-color-primary-light-8);
+  --el-tag-text-color: var(--el-color-primary);
+  --el-tag-hover-color: var(--el-color-primary);
+}
+
+html
+  body
+  .el-tag--dark:not(
+    html body .el-tag--success,
+    html body .el-tag--info,
+    html body .el-tag--warning,
+    html body .el-tag--danger
+  ),
+html
+  body[class*="vab-theme-"]
+  .el-tag--dark:not(
+    html body .el-tag--success,
+    html body .el-tag--info,
+    html body .el-tag--warning,
+    html body .el-tag--danger
+  ) {
+  --el-tag-bg-color: var(--el-color-primary);
+  --el-tag-border-color: var(--el-color-primary);
+  --el-tag-hover-color: var(--el-color-primary-2);
+}
+
+html body .el-select-dropdown__item.hover,
+.el-select-dropdown__item:hover {
+  background-color: var(--el-color-primary-light-9);
+  color: var(--el-color-primary);
+}
+
+html body .el-select__popper.el-popper {
+  padding: 5px 11px;
+}
+
+html body .el-table {
+  --el-table-header-bg-color: var(--custom-table-header-bg-color);
+  --el-table-header-text-color: var(--custom-table-header-text-color);
+}
+
+html body .el-card {
+  --el-card-border-radius: var(--custom-border-radius);
+  --el-card-padding: var(--custom-card-padding);
+  .el-card__header {
+    font-weight: bold;
+  }
+}
+
+html body .el-form-item__label {
+  color: var(--el-text-color-primary);
+}
+
+html body .el-dialog {
+  --el-dialog-border-radius: var(--custom-border-radius);
+}
+
+.el-dialog__title {
+  font-weight: bold;
+}
+
+.el-upload-list--picture-card .el-upload-list__item {
+  border-radius: var(--custom-border-radius);
+}
+
+.el-upload--picture-card {
+  border-radius: var(--custom-border-radius);
+}
+
+.el-tabs__nav-wrap::after {
+  height: 1px;
+  background-color: var(--el-border-color-lighter);
+}
+
+.el-pagination__total {
+  color: var(--el-text-color-primary);
+}
+
+.el-image__error {
+  border-radius: var(--custom-border-radius);
+}
+
+.el-table {
+  color: var(--el-text-color-primary);
+}
+.el-pagination {
+  --el-pagination-border-radius: var(--custom-border-radius-min);
+}
+
+.el-descriptions__label {
+  white-space: nowrap;
+}
+
+.el-table__body-header .cell {
+  white-space: nowrap;
+}
+
+.el-form-item__label {
+  white-space: nowrap;
+}
+
+.el-dialog__headerbtn .el-icon {
+  width: 1.5em;
+  height: 1.5em;
+  font-size: 22px !important;
+}
+
+// 解决使用postcss-plugin-px2rem插件导致在el-dialog中el-cascader开启multiple属性后高度计算错误的问题(https://github.com/element-plus/element-plus/issues/13176)
+.el-dialog .el-cascader .el-input__inner {
+  --el-input-inner-height: calc(var(--el-component-size, 2rem) - 2px);
+  min-height: var(--el-component-size);
+}

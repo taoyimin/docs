@@ -4,10 +4,11 @@ export const dictSelectProps = {
   /**
    * @description 字典类型
    */
-  dictType: {
-    type: [Number, String],
-    required: true
-  }
+  dictType: String,
+  /**
+   * @description 父字典id
+   */
+  parentId: Number,
 };
 
 export type DictSelectProps = ExtractPropTypes<typeof dictSelectProps>;

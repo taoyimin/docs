@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "Liv Web"
   text: 人居环境前端文档
-  tagline: 基于Vite4、Vue3、Vue-Router4、Pinia构建的微前端应用
+  tagline: 基于Vite5、Vue3、Vue-Router4、Pinia构建的微前端应用
   image:
     src: /logo.png
     width: 1000
@@ -13,7 +13,7 @@ hero:
   actions:
     - theme: brand
       text: 快速开始
-      link: /markdown-examples
+      link: /guide/start
     - theme: alt
       text: 研发云上查看
       link: https://www.srdcloud.cn/code/3166/repoView/107408?activeType=list&activeTab=codeFile&key=master
@@ -23,7 +23,7 @@ features:
     title: 采用monorepo管理仓库
     details: 单仓库管理多项目，无需打包发布，即可实现跨项目调用
   - icon: ⚡️
-    title: 基于Vite4进行构建
+    title: 基于Vite5进行构建
     details: 无论应用程序大小如何，都始终极快的模块热替换（HMR）
   - icon: 🤞
     title: 封装Liv-UI组件库

@@ -2,12 +2,8 @@
   "name": "@szxc/http",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "description": "网络请求库",
-  "main": "index.js",
-  "peerDependencies": {
-    "@types/qs": ">=6.9.8",
-    "axios": ">=1.5.1",
-    "qs": ">=6.11.2"
-  },
+  "main": "index.ts",
   "license": "ISC"
 }

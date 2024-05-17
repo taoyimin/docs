@@ -1,18 +1,36 @@
-.DS_Store
+# Editor directories and files
+.idea
+.hbuilderx
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Package Manager
 node_modules
-dist
-site
-lib
-esm
-.DS_Store
-.vscode
 yarn.lock
 package-lock.json
+
+# System
+.DS_Store
+
+# Bundle
+dist
+dist-ssr
+cache
 coverage
-.history
 
 # Log files
 .pnpm-debug.log*
-lerna-debug.log
-cache
-.idea
+lerna-debug.log*
+
+# Local env files
+*.local
+
+# Auto import
+**/auto-imports.d.ts
+**/components.d.ts
+
+# plug-in
+.history

@@ -1,41 +1,108 @@
 # Data Descriptions 数据描述列表
 
-该组件用于快速生成数据描述列表，内部封装了列表项渲染、文件处理等逻辑，只需传入[data](#attributes)和[fields](#attributes)属性即可。
+该组件用于快速生成数据描述列表，内部封装了列表项渲染、文件处理等逻辑，只需传入[data](#属性)和[fields](#field)属性即可。
 
 ## 基础用法
 :::demo
 ```vue
 <template>
-  <liv-data-descriptions :data="data" :fields="fields"/>
+  <liv-data-descriptions :data="data" :fields="fields" />
 </template>
 
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
-import { getDetail } from './apis/eventApi'
+import { getDemoDetail } from '@szxc/apis'
 
 const data = ref({})
 
-const fields = [{
-  prop: 'no',
-  label: '事件编号',
-},{
-  prop: 'typeStr',
-  label: '事件状态',
-},{
-  prop: 'typeStr',
-  label: '事件类型',
-},{
-  prop: 'contactName',
-  label: '联系人',
-},{
-  prop: 'imageUrl',
-  label: '事件图片',
-  fieldType: 'image'
-}]
+const fields = [
+  {
+    prop: 'no',
+    label: '事件编号'
+  },
+  {
+    prop: 'statusStr',
+    label: '事件状态'
+  },
+  {
+    prop: 'typeStr',
+    label: '事件类型'
+  },
+  {
+    prop: 'contactName',
+    label: '联系人'
+  },
+  {
+    prop: 'id',
+    label: '事件二维码',
+    fieldType: 'qrcode'
+  },
+  {
+    prop: 'imageUrl',
+    label: '事件图片',
+    fieldType: 'image'
+  },
+  {
+    prop: 'audioUrl',
+    label: '事件录音',
+    fieldType: 'audio'
+  }
+]
 
 onMounted(async () => {
-    // 请求详情数据
-    data.value = await getDetail()
+  // 请求详情数据
+  data.value = await getDemoDetail()
+})
+</script>
+```
+:::
+
+## 格式化内容
+传入`fieldFormat`函数可以对描述项的内容进行格式化处理。
+:::demo
+```vue
+<template>
+  <liv-data-descriptions :data="data" :fields="fields" />
+</template>
+
+<script lang="ts" setup>
+import { ref, onMounted } from 'vue'
+import { getDemoDetail } from '@szxc/apis'
+
+const data = ref({})
+
+const fields = [
+  {
+    prop: 'no',
+    label: '事件编号'
+  },
+  {
+    prop: 'statusStr',
+    label: '事件状态',
+    fieldFormat: (value) => `${value}状态`
+  },
+  {
+    prop: 'typeStr',
+    label: '事件类型',
+    fieldFormat: (value) => `${value}事件`
+  },
+  {
+    prop: 'contactName',
+    label: '联系人',
+    fieldFormat: (value, data) => {
+      return `${value}（${data.contactTelephone}）`
+    }
+  },
+  {
+    prop: 'imageUrl',
+    label: '事件图片',
+    fieldType: 'image'
+  }
+]
+
+onMounted(async () => {
+  // 请求详情数据
+  data.value = await getDemoDetail()
 })
 </script>
 ```
@@ -50,41 +117,47 @@ Data Descriptions[ElDescriptions](https://element-plus.org/zh-CN/component/descr
 <template>
   <liv-data-descriptions 
     :data="data" 
-    :fields="fields"
-    title="自定义标题"
-    direction="vertical"/>
+    :fields="fields" 
+    title="自定义标题" 
+    direction="vertical" />
 </template>
 
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
-import { getDetail } from './apis/eventApi'
+import { getDemoDetail } from '@szxc/apis'
 
 const data = ref({})
 
-const fields = [{
-  prop: 'no',
-  label: '事件编号',
-  labelClassName: 'my-label',
-  className: 'my-content'
-},{
-  prop: 'typeStr',
-  label: '事件状态',
-},{
-  prop: 'typeStr',
-  label: '事件类型',
-},{
-  prop: 'contactName',
-  label: '联系人',
-  align: 'right'
-},{
-  prop: 'imageUrl',
-  label: '事件图片',
-  fieldType: 'image'
-}]
+const fields = [
+  {
+    prop: 'no',
+    label: '事件编号',
+    labelClassName: 'my-label',
+    className: 'my-content'
+  },
+  {
+    prop: 'statusStr',
+    label: '事件状态'
+  },
+  {
+    prop: 'typeStr',
+    label: '事件类型'
+  },
+  {
+    prop: 'contactName',
+    label: '联系人',
+    align: 'right'
+  },
+  {
+    prop: 'imageUrl',
+    label: '事件图片',
+    fieldType: 'image'
+  }
+]
 
 onMounted(async () => {
-    // 请求详情数据
-    data.value = await getDetail()
+  // 请求详情数据
+  data.value = await getDemoDetail()
 })
 </script>
 
@@ -99,7 +172,7 @@ onMounted(async () => {
 ```
 :::
 
-## 属性<a id="attributes"></a>
+## 属性
 
 | 属性名 | 说明 | 类型 | 可选值 | 默认值 |
 | ------ | ------ | ------ | ------ | ------ |
@@ -107,6 +180,8 @@ onMounted(async () => {
 | fields | 字段配置信息 | [`Array<Field>`](#field) | — | [] |
 
 ### Field
-| 属性名 | 说明 | 类型 | 可选值 | 默认值 |
-| ------ | ------ | ------ | ------ | ------ |
-| fieldType | 字段类型，不传则默认显示文本 | `enum` | — / 'image' | — |
+
+| 属性名       | 说明             | 类型     | 可选值            | 默认值 |
+|-----------|----------------|--------|----------------|-----|
+| fieldType | 字段类型，不传则默认显示文本 | `enum` | `image` `audio` `link` `qrcode` | —   |
+| fieldFormat | 格式化字段内容 | `Function` | `(value, data) => {}` | — |

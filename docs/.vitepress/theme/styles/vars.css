@@ -1,104 +1,47 @@
 /**
  * Colors
  * -------------------------------------------------------------------------- */
-
 :root {
-    --vp-c-brand-light: #10b981;
-    --vp-c-brand-lighter: #34d399;
-    --vp-c-brand-lighter-item: #6ee7b7;
-    --vp-c-brand-dark: #059669;
-    --vp-c-brand-darker: #047857;
-    /* --vp-c-brand-dimm: #c9433710;
-    --vp-z-index-nav: 999 !important;
-    --vp-z-index-footer: -10; */
-}
-
-/**
-   * Component: Button
-   * -------------------------------------------------------------------------- */
-
-:root {
-    --vp-button-brand-border: var(--vp-c-brand-light);
-    --vp-button-brand-text: var(--vp-c-text-dark-1);
-    --vp-button-brand-bg: var(--vp-c-brand);
-    --vp-button-brand-hover-border: var(--vp-c-brand-light);
-    --vp-button-brand-hover-text: var(--vp-c-text-dark-1);
-    --vp-button-brand-hover-bg: var(--vp-c-brand-light);
-    --vp-button-brand-active-border: var(--vp-c-brand-light);
-    --vp-button-brand-active-text: var(--vp-c-text-dark-1);
-    --vp-button-brand-active-bg: var(--vp-button-brand-bg);
+  --vp-c-indigo-1: #10b981;
+  --vp-c-indigo-2: #10b981;
+  --vp-c-indigo-3: #10b981;
 }
 
 /**
    * Component: Home
    * -------------------------------------------------------------------------- */
-
 :root {
-    --color1: #76BBFA;
-    --color2: #10b981;
-    --vp-home-hero-name-color: transparent;
-    --vp-home-hero-name-background: -webkit-linear-gradient(60deg, var(--color2) 39%, var(--color1));
-    --vp-home-hero-name-background-title: -webkit-linear-gradient(120deg, var(--color2) 39%, currentColor);
+  --color1: #76bbfa;
+  --color2: #10b981;
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(
+    60deg,
+    var(--color2) 39%,
+    var(--color1)
+  );
+  --vp-home-hero-name-background-title: -webkit-linear-gradient(
+    120deg,
+    var(--color2) 39%,
+    currentColor
+  );
 
-    --vp-home-hero-image-background-image: linear-gradient(-45deg, var(--color1) 50%, var(--color2) 50%, transparent 99%);
-    --vp-home-hero-image-filter: blur(40px);
+  --vp-home-hero-image-background-image: linear-gradient(
+    -45deg,
+    var(--color1) 50%,
+    var(--color2) 50%,
+    transparent 99%
+  );
+  --vp-home-hero-image-filter: blur(40px);
 }
 
 @media (min-width: 640px) {
-    :root {
-        --vp-home-hero-image-filter: blur(56px);
-    }
+  :root {
+    --vp-home-hero-image-filter: blur(56px);
+  }
 }
 
 @media (min-width: 960px) {
-    :root {
-        --vp-home-hero-image-filter: blur(72px);
-    }
-}
-
-/**
-   * Component: Custom Block
-   * -------------------------------------------------------------------------- */
-
-/* :root {
-    --vp-custom-block-tip-border: var(--vp-c-brand);
-    --vp-custom-block-tip-text: var(--vp-c-brand-darker);
-    --vp-custom-block-tip-bg: var(--vp-c-brand-dimm);
+  :root {
+    --vp-home-hero-image-filter: blur(72px);
   }
-  
-  .dark {
-    --vp-custom-block-tip-border: var(--vp-c-brand);
-    --vp-custom-block-tip-text: var(--vp-c-brand-lighter);
-    --vp-custom-block-tip-bg: var(--vp-c-brand-dimm);
-  } */
-
-/**
-   * Component: Algolia
-   * -------------------------------------------------------------------------- */
-
-/* .link {
-    padding: 4px 0;
-}
-
-.VPButton.medium {
-    border-radius: 0px;
-} */
-
-/* vp-doc style */
-.vp-doc table {
-    display: table !important;
-    width: 100%;
-    margin: 0;
-}
-
-.vp-doc tr:nth-child(2n) {
-    background-color: transparent !important;
-}
-
-.vp-doc th {
-    color: unset !important;
-}
-
-.el-table__inner-wrapper {
-    border-right: 1px solid var(--vp-c-divider);
 }

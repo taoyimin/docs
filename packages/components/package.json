@@ -2,15 +2,8 @@
   "name": "@szxc/components",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "description": "通用组件库",
-  "main": "index.js",
-  "peerDependencies": {
-    "@szxc/utils": "workspace:^",
-    "@szxc/apis": "workspace:^",
-    "@szxc/http": "workspace:^",
-    "element-plus": ">=2.3.14",
-    "@element-plus/icons-vue": ">=2.1.0",
-    "vue": ">=3.3.4"
-  },
+  "main": "index.ts",
   "license": "ISC"
 }

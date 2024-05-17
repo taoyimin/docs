@@ -2,10 +2,8 @@
   "name": "@szxc/apis",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "description": "通用接口库",
-  "main": "index.js",
-  "license": "ISC",
-  "peerDependencies": {
-    "@szxc/http": "workspace:^"
-  }
+  "main": "index.ts",
+  "license": "ISC"
 }

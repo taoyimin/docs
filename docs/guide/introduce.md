@@ -8,9 +8,10 @@
 │  ├─ app1   // 项目1
 │  └─ app2   // 项目2
 ├─ packages  // 公共模块包
-│  ├─ apis   // 接口库
 │  ├─ components   // 组件库
 │  ├─ http   // 请求库
+│  ├─ stores // 存储库
+│  ├─ apis   // 接口库
 │  └─ utils  // 工具库
 └─ package.json
 ```

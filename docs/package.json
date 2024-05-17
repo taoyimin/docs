@@ -12,12 +12,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "element-plus": "^2.3.14",
-    "@szxc/components": "workspace:^"
+    "medium-zoom": "^1.1.0"
   },
   "devDependencies": {
-    "vue": "^3.3.4",
-    "vitepress": "1.0.0-beta.3",
-    "vitepress-theme-demoblock": "^3.0.3"
+    "vite-plugin-mock": "^3.0.2",
+    "vitepress": "^1.1.4",
+    "vitepress-theme-demoblock": "^3.0.7"
   }
 }
