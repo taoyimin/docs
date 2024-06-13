@@ -10,6 +10,8 @@ import { viteMockServe } from 'vite-plugin-mock'
 
 const pathSrc = path.resolve(__dirname, './')
 
+const uniComponents = ['LivList']
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   markdown: {
@@ -28,7 +30,7 @@ export default defineConfig({
         resolvers: [
           ElementPlusResolver({ importStyle: 'sass' }),
           (componentName) => {
-            if (componentName.startsWith('Liv')) {
+            if (componentName.startsWith('Liv') && !uniComponents.includes(componentName)) {
               return { name: componentName, from: '@szxc/components' }
             }
           }
@@ -45,7 +47,14 @@ export default defineConfig({
       dedupe: ['pinia']
     },
     ssr: {
-      noExternal: ['element-plus', 'jsencrypt', 'vue', 'xgplayer']
+      noExternal: [
+        '@dcloudio/uni-app',
+        'element-plus',
+        'jsencrypt',
+        'uview-plus',
+        'vue',
+        'xgplayer'
+      ]
     },
     css: {
       preprocessorOptions: {
@@ -73,6 +82,7 @@ export default defineConfig({
     ['link', { rel: 'icon', href: '/docs/favicon.ico' }],
     ['script', { src: 'https://at.alicdn.com/t/c/font_1856667_jvba3vb09ds.js' }]
   ],
+  lang: 'zh',
   title: '人居环境前端文档',
   description: '人居环境微前端项目文档',
   lastUpdated: true,
@@ -82,9 +92,52 @@ export default defineConfig({
     search: {
       provider: 'algolia',
       options: {
-        appId: 'ICJQD4NURO',
-        apiKey: 'b0d53e8fd1d5c9b6085b24750b678296',
-        indexName: 'taoyimin233-gitee'
+        appId: 'JMLTI8BUN7',
+        apiKey: '2d31957a49a6faaf1658c6c16976c76b',
+        indexName: 'taoyiminio',
+        locales: {
+          root: {
+            placeholder: '搜索文档',
+            translations: {
+              button: {
+                buttonText: '搜索文档',
+                buttonAriaLabel: '搜索文档'
+              },
+              modal: {
+                searchBox: {
+                  resetButtonTitle: '清除查询条件',
+                  resetButtonAriaLabel: '清除查询条件',
+                  cancelButtonText: '取消',
+                  cancelButtonAriaLabel: '取消'
+                },
+                startScreen: {
+                  recentSearchesTitle: '搜索历史',
+                  noRecentSearchesText: '没有搜索历史',
+                  saveRecentSearchButtonTitle: '保存至搜索历史',
+                  removeRecentSearchButtonTitle: '从搜索历史中移除',
+                  favoriteSearchesTitle: '收藏',
+                  removeFavoriteSearchButtonTitle: '从收藏中移除'
+                },
+                errorScreen: {
+                  titleText: '无法获取结果',
+                  helpText: '你可能需要检查你的网络连接'
+                },
+                footer: {
+                  selectText: '选择',
+                  navigateText: '切换',
+                  closeText: '关闭',
+                  searchByText: '搜索提供者'
+                },
+                noResultsScreen: {
+                  noResultsText: '无法找到相关结果',
+                  suggestedQueryText: '你可以尝试查询',
+                  reportMissingResultsText: '你认为该查询应该有结果？',
+                  reportMissingResultsLinkText: '点击反馈'
+                }
+              }
+            }
+          }
+        }
       }
     },
     editLink: {
@@ -118,13 +171,15 @@ export default defineConfig({
       { text: '状态存储', link: '/stores/introduce', activeMatch: '/stores/' },
       { text: 'APIs', link: '/apis/introduce', activeMatch: '/apis/' },
       { text: '工具库', link: '/utils/introduce', activeMatch: '/utils/' },
+      { text: '移动端', link: '/mobile/introduce', activeMatch: '/mobile/' },
       {
         text: '服务器导航',
         items: [
           {
             text: '微前端应用',
             items: [
-              { text: 'k8s测试环境', link: '/navigation/navigation#k8s测试环境' },
+              { text: '江西生产环境', link: '/navigation/navigation#江西生产环境' },
+              { text: '江西测试环境', link: '/navigation/navigation#江西测试环境' },
               { text: '龘云生产环境', link: '/navigation/navigation#龘云生产环境' },
               { text: '龘云测试环境', link: '/navigation/navigation#龘云测试环境' },
               { text: '宁夏测试环境', link: '/navigation/navigation#宁夏测试环境' }
@@ -536,6 +591,140 @@ export default defineConfig({
             {
               text: 'useCountDown 倒计时器',
               link: '/utils/hooks/use-count-down'
+            }
+          ]
+        }
+      ],
+      '/mobile/': [
+        {
+          text: '指南',
+          items: [
+            {
+              text: '介绍',
+              link: '/mobile/introduce'
+            },
+            {
+              text: '安装',
+              link: '/mobile/install'
+            },
+            {
+              text: '快速开始',
+              link: '/mobile/start'
+            },
+            {
+              text: '注意事项',
+              link: '/mobile/attention'
+            },
+            {
+              text: '最佳实践',
+              link: '/mobile/practices'
+            }
+          ]
+        },
+        {
+          text: '公共组件',
+          items: [
+            {
+              text: '使用须知',
+              link: '/mobile/components/use'
+            },
+            {
+              text: 'audio-bubble 语音气泡',
+              link: '/mobile/components/audio-bubble'
+            },
+            {
+              text: 'calendar 日历选择器',
+              link: '/mobile/components/calendar'
+            },
+            {
+              text: 'audio-recorder 语音录制',
+              link: '/mobile/components/audio-recorder'
+            },
+            {
+              text: 'data-checkbox 多选框',
+              link: '/mobile/components/data-checkbox'
+            },
+            {
+              text: 'data-picker 选择器',
+              link: '/mobile/components/data-picker'
+            },
+            {
+              text: 'data-radio 单选框',
+              link: '/mobile/components/data-radio'
+            },
+            {
+              text: 'datetime-picker 日期选择器',
+              link: '/mobile/components/datetime-picker'
+            },
+            {
+              text: 'dict-checkbox 字典多选框',
+              link: '/mobile/components/dict-checkbox'
+            },
+            {
+              text: 'dict-picker 字典选择器',
+              link: '/mobile/components/dict-picker'
+            },
+            {
+              text: 'dict-radio 字典单选框',
+              link: '/mobile/components/dict-radio'
+            },
+            {
+              text: 'form 数据表单',
+              link: '/mobile/components/form'
+            },
+            {
+              text: 'grid-picker 网格选择器',
+              link: '/mobile/components/grid-picker'
+            },
+            {
+              text: 'list 数据列表',
+              link: '/mobile/components/list'
+            },
+            {
+              text: 'recorder-tip 录音提示',
+              link: '/mobile/components/recorder-tip'
+            },
+            {
+              text: 'upload 图片上传',
+              link: '/mobile/components/upload'
+            }
+          ]
+        },
+        {
+          text: 'Hooks',
+          items: [
+            {
+              text: 'useAudioRecorder 语音录制',
+              link: '/mobile/hooks/useAudioRecorder'
+            },
+            {
+              text: 'useGeoLocation 位置获取',
+              link: '/mobile/hooks/useGeoLocation'
+            },
+            {
+              text: 'useQrcodeScanner 扫码',
+              link: '/mobile/hooks/useQrcodeScanner'
+            },
+            {
+              text: 'useUviewUpload 文件上传',
+              link: '/mobile/hooks/useUviewUpload'
+            }
+          ]
+        },
+        {
+          text: '工具库',
+          items: [
+            {
+              text: '登录相关',
+              link: '/mobile/utils/login'
+            },
+            {
+              text: '图片相关',
+              link: '/mobile/utils/image'
+            },
+            {
+              text: '文件相关',
+              link: '/mobile/utils/file'
             }
           ]
         }

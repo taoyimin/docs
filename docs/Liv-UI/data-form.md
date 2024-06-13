@@ -32,7 +32,8 @@ const form = ref({
   dict: '',
   grid: '',
   longitude: '',
-  latitude: ''
+  latitude: '',
+  richText: ''
 })
 
 const fields = [
@@ -216,6 +217,11 @@ const fields = [
     prop: ['longitude', 'latitude'],
     label: '地图选点',
     fieldType: 'location'
+  },
+  {
+    prop: 'richText',
+    label: '富文本',
+    fieldType: 'richText'
   }
 ]
 
@@ -224,6 +230,9 @@ const handleSubmit = (form) => {
 }
 </script>
 ```
+:::
+:::warning 注意
+如果表单组件中使用了富文本编辑器，在不使用的时候需要及时销毁表单组件，例如在ElDialog组件中使用，推荐设置`destroy-on-close`属性为`true`。
 :::
 
 ## 表单项数据
@@ -966,7 +975,8 @@ const form = ref({
   no: '',
   status: '',
   location: '',
-  imageUrl: ''
+  imageUrl: '',
+  article: ''
 })
 
 const fields = [
@@ -1018,6 +1028,25 @@ const fields = [
     listType: 'picture',
     limit: 1,
     tip: '最多上传一张图片'
+  },
+  {
+    prop: 'article',
+    label: '文章内容',
+    fieldType: 'richText',
+    editor: {
+      editorConfig: {
+        placeholder: '自定义提示语',
+        MENU_CONF: {
+          uploadImage: {
+            // 只允许上传1M以内的文件
+            maxFileSize: 1 * 1024 * 1024,
+            onError(file: File, err: any, res: any) {
+              ElMessage.error(`${file.name} 上传出错：${err.message}`)
+            },
+          }
+        }
+      }
+    }
   }
 ]
 
@@ -1059,6 +1088,7 @@ const handleSubmit = (form) => {
 | `grid` `gridId` | 网格选择器 | [GridCascader](/Liv-UI/grid-cascader) |
 | `personnel` | 人员选择器 | [PersonnelSelect](/Liv-UI/personnel-select) |
 | `location` | 地图选点 | [LocationPicker](/Liv-UI/location-picker) |
+| `richText` | 富文本编辑器 | [WangEditor](https://www.wangeditor.com) |
 
 ## 事件
 

@@ -1,0 +1,85 @@
+# 单选框
+
+该组件基于[UpCheckboxGroup](https://uiadmin.net/uview-plus/components/checkbox.html)组件进行二次封装，通常用于表单项多选数据，只需传入对应的数据即可渲染出多选列表。
+
+## 基础用法
+
+传入数据集合，通过双向绑定获取选中值数组。
+
+```vue
+<template>
+  <liv-data-checkbox v-model="value" :data="statusData" />
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const statusData = [
+  { label: '待处理', value: '1' },
+  { label: '待评价', value: '2' },
+  { label: '已办结', value: '3' }
+]
+
+const value = ref('')
+</script>
+```
+
+## 异步加载数据
+
+传入返回数据的`Promise`并设置对应的`label-key`和`value-key`属性，可以实现数据的异步加载。
+
+```vue
+<template>
+  <liv-data-checkbox
+    v-model="value"
+    :data="getDictList({ dicCode: 'eventType' })"
+    label-key="dicSubName"
+    value-key="dicSubCode"
+  />
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import { getDictList } from '@szxc/apis'
+
+const value = ref('')
+</script>
+```
+
+## 属性
+
+| 属性名    | 说明         | 类型                  | 可选值 | 默认值 |
+| --------- | ------------ | --------------------- | ------ | ------ |
+| v-model   | 选中的value  | `T[keyof T][]`        | —      | []     |
+| data      | 单选框数据   | `T[] \| Promise<T[]>` | —      | —      |
+| label-key | 查询参数     | `keyof T`             | —      | label  |
+| value-key | 每页显示数量 | `keyof T`             | —      | value  |
+
+除了上述属性，你还可以透传[UpCheckboxGroup](https://uiadmin.net/uview-plus/components/checkbox.html#checkbox-props)组件的所有属性。
+
+::: details 类型声明
+
+```ts
+import type { StyleValue } from 'vue'
+
+export interface DataCheckboxProps<T> {
+  /**
+   * 单选框数据
+   */
+  data: T[] | Promise<T[]>
+  /**
+   * 列表中展示的字段名
+   */
+  labelKey?: keyof T
+  /**
+   * 选中后绑定的字段名
+   */
+  valueKey?: keyof T
+  /**
+   * 自定义根节点样式
+   */
+  customStyle?: StyleValue
+}
+```
+
+:::

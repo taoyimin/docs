@@ -183,5 +183,5 @@ onMounted(async () => {
 
 | 属性名       | 说明             | 类型     | 可选值            | 默认值 |
 |-----------|----------------|--------|----------------|-----|
-| fieldType | 字段类型，不传则默认显示文本 | `enum` | `image` `audio` `link` `qrcode` | —   |
+| fieldType | 字段类型，不传则默认显示文本 | `enum` | `image` `audio` `link` `qrcode` `richText` | —   |
 | fieldFormat | 格式化字段内容 | `Function` | `(value, data) => {}` | — |

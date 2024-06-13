@@ -5,6 +5,7 @@
 ## 基础用法
 
 :::demo
+
 ```vue
 <template>
   <liv-a-map class="map" />
@@ -16,6 +17,7 @@
 }
 </style>
 ```
+
 :::
 
 ## 初始化配置
@@ -23,13 +25,15 @@
 你可以通过传入`load-options`属性来配置地图的加载参数，该属性与高德地图JS API的加载参数（即[AMapLoader.load](https://lbs.amap.com/api/javascript-api-v2/guide/abc/load)方法的参数）完全一致。你还可以通过传入`map-options`属性来配置地图的初始化参数，该属性与高德地图初始化参数（即[AMap.Map](https://lbs.amap.com/api/javascript-api-v2/documentation#map)方法的参数）一一对应，唯一不同点在于对`layers`属性进行了改造，由于组件内部对`AMap`的加载和`map`的初始化进行了封装，只有在`loaded`事件中才能拿到`AMap`与`map`实例。而初始化地图时传入的`layers`属性往往需要使用`AMap`实例去创建图层，这时你可以通过一个回调函数拿到`AMap`实例，然后在该回调函数中创建图层并返回图层数组。同时，组件内置了`default`、`satellite`、`roadNet`和`traffic`四种图层，直接传入字符串即可快速生成对应图层。
 
 :::demo
+
 ```vue
 <template>
-  <liv-a-map 
-    class="map" 
-    :load-options="loadOptions" 
-    :map-options="mapOptions" 
-    @loaded="loaded" />
+  <liv-a-map
+    class="map"
+    :load-options="loadOptions"
+    :map-options="mapOptions"
+    @loaded="loaded"
+  />
 </template>
 
 <script lang="ts" setup>
@@ -91,6 +95,7 @@ function loaded(map, AMap) {
 }
 </style>
 ```
+
 :::
 
 ## 图层控制
@@ -98,6 +103,7 @@ function loaded(map, AMap) {
 你可以通过`layers`属性来控制图层的切换，可以传入组件内置的`default`、`satellite`、`roadNet`和`traffic`四种图层，并且支持传入高德地图提供的任意[图层对象](https://lbs.amap.com/api/javascript-api-v2/guide/layers/official-layers)。
 
 :::demo
+
 ```vue
 <template>
   <el-radio-group v-model="index">
@@ -157,6 +163,7 @@ function loaded(map, AMap) {
 }
 </style>
 ```
+
 :::
 
 :::danger 注意
@@ -168,6 +175,7 @@ function loaded(map, AMap) {
 组件内部封装了图层切换控件，可以通过`layers-control`属性控制是否展示。默认展示在左下角，你可以通过`deep`深度选择器修改控件展示的位置。
 
 :::demo
+
 ```vue
 <template>
   <liv-a-map class="map" layers-control />
@@ -184,6 +192,7 @@ function loaded(map, AMap) {
 }
 </style>
 ```
+
 :::
 
 ## 图层控件按钮
@@ -191,6 +200,7 @@ function loaded(map, AMap) {
 通过传入`layers-buttons`属性可以生成对应的图层切换按钮，内部会根据传入的图层内容匹配对应的按钮图片，你也可以通过`image`属性设置按钮图片。
 
 :::demo
+
 ```vue
 <template>
   <liv-a-map
@@ -264,21 +274,22 @@ function loaded(map, AMap) {
 }
 </style>
 ```
+
 :::
 
 ## 属性
 
-| 属性名 | 说明 | 类型 | 可选值 | 默认值 |
-| ------ | ------ | ------ | ------ | ------ |
-| load-options | 高德地图JS API的加载参数，对应[AMapLoader.load](https://lbs.amap.com/api/javascript-api-v2/guide/abc/load)方法的参数 | `AMap.LoadOptions` | — | — |
-| map-options | 高德地图初始化参数，对应[AMap.Map](https://lbs.amap.com/api/javascript-api-v2/documentation#map)方法的参数 | `AMap.MapOptions` | — | — |
-| layers | 地图展示的图层 | `AMapLayer` | — | ['default'] |
-| layers-control | 是否展示图层切换控件 | `boolean` | — | false |
-| layers-buttons | 自定义图层切换按钮 | `Array<AMapLayerButton>` | — | — |
-| layers-index / v-model:layers-index | 当前选中的图层切换按钮下标 | `number` | — | 0 |
+| 属性名                              | 说明                                                                                                                 | 类型                     | 可选值 | 默认值      |
+| ----------------------------------- | -------------------------------------------------------------------------------------------------------------------- | ------------------------ | ------ | ----------- |
+| load-options                        | 高德地图JS API的加载参数，对应[AMapLoader.load](https://lbs.amap.com/api/javascript-api-v2/guide/abc/load)方法的参数 | `AMap.LoadOptions`       | —      | —           |
+| map-options                         | 高德地图初始化参数，对应[AMap.Map](https://lbs.amap.com/api/javascript-api-v2/documentation#map)方法的参数           | `AMap.MapOptions`        | —      | —           |
+| layers                              | 地图展示的图层                                                                                                       | `AMapLayer`              | —      | ['default'] |
+| layers-control                      | 是否展示图层切换控件                                                                                                 | `boolean`                | —      | false       |
+| layers-buttons                      | 自定义图层切换按钮                                                                                                   | `Array<AMapLayerButton>` | —      | —           |
+| layers-index / v-model:layers-index | 当前选中的图层切换按钮下标                                                                                           | `number`                 | —      | 0           |
 
 ## 事件
 
-| 事件名 | 说明 | 类型 | 可选值 | 默认值 |
-| ------ | ------ | ------ | ------ | ------ |
-| loaded | 地图加载完成后的回调 | `Function` | `(map, AMap) => void` | — |
+| 事件名 | 说明                 | 类型       | 可选值                      | 默认值 |
+| ------ | -------------------- | ---------- | --------------------------- | ------ |
+| loaded | 地图加载完成后的回调 | `Function` | `(map, AMap, Loca) => void` | —      |

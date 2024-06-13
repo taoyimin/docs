@@ -10,7 +10,7 @@ import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import { onMounted, watch, nextTick } from 'vue'
 import { useRoute } from 'vitepress'
 import mediumZoom from 'medium-zoom'
-import { createProdMockServer } from 'vite-plugin-mock/client'
+//import { createProdMockServer } from 'vite-plugin-mock/client'
 import './index.css'
 
 export default {
