@@ -46,6 +46,36 @@ const value = ref('')
 </script>
 ```
 
+## 懒加载数据
+
+传入`lazy`属性和数据的加载方法，可以实现数据的懒加载。
+
+```vue
+<template>
+  <liv-data-picker
+    v-model="value"
+    :data="loadData"
+    lazy
+    label-key="dicSubName"
+    value-key="dicSubCode"
+  />
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import { type Dict, getDictList } from '@szxc/apis'
+
+const value = ref('')
+
+function loadData(
+  reslove: (dicts: Dict[]) => void,
+  reject: (reason: any) => void
+) {
+  getDictList({ dicCode: 'eventType' }).then(reslove).catch(reject)
+}
+</script>
+```
+
 ## 插槽
 
 通过传入`prefix`或`suffix`插槽可以指定回显区域的前后内容。通过传入`item`、`title`、`empty`等具名插槽，你可以自定义列表项、顶部栏、空白页的样式。
@@ -115,42 +145,68 @@ const value = ref('')
 
 ## 属性
 
-| 属性名            | 说明                                                                                    | 类型                  | 可选值 | 默认值   |
-| ----------------- | --------------------------------------------------------------------------------------- | --------------------- | ------ | -------- |
-| v-model           | 选中的value                                                                             | `string`              | —      | —        |
-| v-model:show      | 是否显示                                                                                | `boolean`             | —      | false    |
-| data              | 选择器数据                                                                              | `T[] \| Promise<T[]>` | —      | —        |
-| title             | 选择器标题                                                                              | `string`              | —      | 请选择   |
-| empty-text        | 空白页提示语                                                                            | `string`              | —      | 没有数据 |
-| label-key         | 查询参数                                                                                | `keyof T`             | —      | label    |
-| value-key         | 每页显示数量                                                                            | `keyof T`             | —      | value    |
-| showMode          | 选择器模式，[详见](#选择器模式)                                                         | `picker` `popup`      | —      | picker   |
-| placeholder       | 未选择时的占位符                                                                        | `string`              | —      | 请选择   |
-| placeholder-style | 指定placeholder的样式                                                                   | `StyleValue`          | —      | —        |
-| placeholder-class | 指定placeholder的样式类，注意页面或组件的style中写了scoped时，需要使用深度选择器:deep() | `string`              | —      | —        |
+| 属性名            | 说明                                                                                    | 类型                                 | 可选值 | 默认值   |
+| ----------------- | --------------------------------------------------------------------------------------- | ------------------------------------ | ------ | -------- |
+| v-model           | 选中的value                                                                             | `string`                             | —      | —        |
+| v-model:show      | 是否显示                                                                                | `boolean`                            | —      | false    |
+| data              | 选择器数据                                                                              | `T[] \| Promise<T[]> \| LoadData<T>` | —      | —        |
+| lazy              | 是否懒加载数据，弹窗打开后再加载数据                                                    | `boolean`                            | —      | false    |
+| title             | 选择器标题                                                                              | `string`                             | —      | 请选择   |
+| empty-text        | 空白页提示语                                                                            | `string`                             | —      | 没有数据 |
+| label-key         | 指定选项标签为选项对象的某个属性值                                                      | `keyof T`                            | —      | label    |
+| value-key         | 指定选项的值为选项对象的某个属性值                                                      | `keyof T`                            | —      | value    |
+| showMode          | 选择器模式，[详见](#选择器模式)                                                         | `picker` `popup`                     | —      | picker   |
+| disabled          | 是否禁用                                                                                | `boolean`                            | —      | false    |
+| value-style       | 指定回显文字的样式                                                                      | `StyleValue`                         | —      | —        |
+| placeholder       | 未选择时的占位符                                                                        | `string`                             | —      | 请选择   |
+| placeholder-style | 指定placeholder的样式                                                                   | `StyleValue`                         | —      | —        |
+| placeholder-class | 指定placeholder的样式类，注意页面或组件的style中写了scoped时，需要使用深度选择器:deep() | `string`                             | —      | —        |
 
 除了上述属性，你还可以透传[UpPopup](https://uiadmin.net/uview-plus/components/popup.html#props)组件的所有属性。
 
+## 事件
+
+| 事件名 | 说明       | 类型       | 可选值            | 默认值 |
+| ------ | ---------- | ---------- | ----------------- | ------ |
+| change | 选中值改变 | `Function` | `(value) => void` | —      |
+
 ## 插槽
 
-| 插槽名 | 说明             | 作用域                      |
-| ------ | ---------------- | --------------------------- |
-| prefix | 回显区域前置内容 | —                           |
-| suffix | 回显区域后置内容 | —                           |
-| item   | 自定义列表项内容 | `{ data: T, index: number}` |
-| title  | 自定义标题栏内容 | —                           |
-| empty  | 自定义空白页内容 | —                           |
+| 插槽名  | 说明             | 作用域                      |
+| ------- | ---------------- | --------------------------- |
+| prefix  | 回显区域前置内容 | —                           |
+| suffix  | 回显区域后置内容 | —                           |
+| item    | 自定义列表项内容 | `{ data: T, index: number}` |
+| title   | 自定义标题栏内容 | —                           |
+| loading | 自定义加载页内容 | —                           |
+| empty   | 自定义空白页内容 | —                           |
+
+## Exposes
+
+| 名称 | 说明     | 类型  | 可选值 | 默认值 |
+| ---- | -------- | ----- | ------ | ------ |
+| data | 组件数据 | `T[]` | —      | []     |
 
 ::: details 类型声明
 
 ```ts
 import type { StyleValue } from 'vue'
+import { ComponentExposed } from 'vue-component-type-helpers'
+import DataPicker from './data-picker.vue'
+
+interface LoadData<T> {
+  (resolve: (data: T[]) => void, reject: (reason: any) => void): void
+}
 
 export interface DataPickerProps<T> {
   /**
    * 选择器数据
    */
-  data: T[] | Promise<T[]>
+  data: T[] | Promise<T[]> | LoadData<T>
+  /**
+   * 是否懒加载数据，弹窗打开后再加载数据
+   */
+  lazy?: boolean
   /**
    * 选择器标题
    */
@@ -172,6 +228,14 @@ export interface DataPickerProps<T> {
    */
   showMode?: 'picker' | 'popup'
   /**
+   * 是否禁用
+   */
+  disabled?: boolean
+  /**
+   * 指定回显文字的样式
+   */
+  valueStyle?: StyleValue
+  /**
    * 未选择时的占位符
    */
   placeholder?: string
@@ -188,6 +252,12 @@ export interface DataPickerProps<T> {
    */
   customStyle?: StyleValue
 }
+
+export type DataPickerEmits<T> = {
+  change: [value: T[keyof T] | undefined]
+}
+
+export type DataPickerInstance = ComponentExposed<typeof DataPicker>
 ```
 
 :::

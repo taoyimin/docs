@@ -4,7 +4,7 @@
 
 ## 基础用法
 
-传入分页数据的加载方法即可渲染出数据列表。其中`item-key`为列表项的唯一标识，推荐为每个`list`组件设置`item-key`属性，以便在重新渲染时,能够尽可能地复用已经存在的元素而不是重新创建。
+传入数据数组/返回分页数据的Promise/返回数据数组的Promise即可渲染出数据列表，。其中`item-key`为列表项的唯一标识，推荐为每个`list`组件设置`item-key`属性，以便在重新渲染时,能够尽可能地复用已经存在的元素而不是重新创建。
 
 ```vue
 <template>
@@ -33,8 +33,8 @@ import { getPage } from '@/apis'
 <template>
   <liv-list
     :load-data="getPage"
-    item-key="id"
     :search-params="params"
+    item-key="id"
     gap="2rpx"
   >
     <template #item="{ data }">
@@ -125,6 +125,10 @@ import { getPage } from '@/apis'
 </script>
 ```
 
+:::tip 提示
+组件内部实现了默认的骨架屏、空白页样式，如无特殊需求使用默认样式即可，保持页面风格的统一。
+:::
+
 ## 属性
 
 | 属性名        | 说明           | 类型              | 可选值 | 默认值 |
@@ -148,15 +152,11 @@ import { getPage } from '@/apis'
 
 ```ts
 import type { ComponentExposed } from 'vue-component-type-helpers'
-import type { AxiosRequestConfig } from 'axios'
 import List from './list.vue'
 import type { StyleValue } from 'vue'
 
 interface LoadData<T> {
-  (
-    params: PageParam & SearchParams,
-    config?: AxiosRequestConfig
-  ): Promise<Page<T>>
+  (...args: any[]): Promise<Page<T>> | Promise<T[]>
 }
 
 interface SearchParams {
@@ -167,7 +167,7 @@ export interface ListProps<T> {
   /**
    * 数据加载方法
    */
-  loadData: LoadData<T>
+  loadData: LoadData<T> | T[]
   /**
    * 列表项唯一标识
    */

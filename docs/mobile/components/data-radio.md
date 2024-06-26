@@ -48,19 +48,27 @@ const value = ref('')
 
 ## 属性
 
-| 属性名    | 说明         | 类型                  | 可选值 | 默认值 |
-| --------- | ------------ | --------------------- | ------ | ------ |
-| v-model   | 选中的value  | `T[keyof T]`          | —      | —      |
-| data      | 单选框数据   | `T[] \| Promise<T[]>` | —      | —      |
-| label-key | 查询参数     | `keyof T`             | —      | label  |
-| value-key | 每页显示数量 | `keyof T`             | —      | value  |
+| 属性名    | 说明                               | 类型                  | 可选值 | 默认值 |
+| --------- | ---------------------------------- | --------------------- | ------ | ------ |
+| v-model   | 选中的value                        | `T[keyof T]`          | —      | —      |
+| data      | 单选框数据                         | `T[] \| Promise<T[]>` | —      | —      |
+| label-key | 指定选项标签为选项对象的某个属性值 | `keyof T`             | —      | label  |
+| value-key | 指定选项的值为选项对象的某个属性值 | `keyof T`             | —      | value  |
 
 除了上述属性，你还可以透传[UpRadioGroup](https://uiadmin.net/uview-plus/components/radio.html#radiogroup-props)组件的所有属性。
+
+## Exposes
+
+| 名称 | 说明     | 类型  | 可选值 | 默认值 |
+| ---- | -------- | ----- | ------ | ------ |
+| data | 组件数据 | `T[]` | —      | []     |
 
 ::: details 类型声明
 
 ```ts
 import type { StyleValue } from 'vue'
+import { ComponentExposed } from 'vue-component-type-helpers'
+import DataRadio from './data-radio.vue'
 
 export interface DataRadioProps<T> {
   /**
@@ -80,6 +88,8 @@ export interface DataRadioProps<T> {
    */
   customStyle?: StyleValue
 }
+
+export type DataRadioInstance = ComponentExposed<typeof DataRadio>
 ```
 
 :::

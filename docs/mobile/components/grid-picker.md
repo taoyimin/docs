@@ -116,6 +116,8 @@ const value = ref('')
 | show-level        | 需要展示到的网格级别                                                                    | `number`         | —      | 100                  |
 | empty-text        | 空白页提示语                                                                            | `string`         | —      | 当前网格没有下级网格 |
 | showMode          | 选择器模式，[详见](#选择器模式)                                                         | `picker` `popup` | —      | picker               |
+| disabled          | 是否禁用                                                                                | `boolean`        | —      | false                |
+| value-style       | 指定回显文字的样式                                                                      | `StyleValue`     | —      | —                    |
 | placeholder       | 未选择时的占位符                                                                        | `string`         | —      | 请选择               |
 | placeholder-style | 指定placeholder的样式                                                                   | `StyleValue`     | —      | —                    |
 | placeholder-class | 指定placeholder的样式类，注意页面或组件的style中写了scoped时，需要使用深度选择器:deep() | `string`         | —      | —                    |
@@ -129,10 +131,17 @@ const value = ref('')
 | prefix | 回显区域前置内容 | —      |
 | suffix | 回显区域后置内容 | —      |
 
+## Exposes
+
+| 名称 | 说明     | 类型     | 可选值 | 默认值 |
+| ---- | -------- | -------- | ------ | ------ |
+| data | 组件数据 | `Grid[]` | —      | []     |
+
 ::: details 类型声明
 
 ```ts
 import type { StyleValue } from 'vue'
+import GridPicker from './grid-picker.vue'
 
 export interface GridPickerProps {
   /**
@@ -156,6 +165,14 @@ export interface GridPickerProps {
    */
   showMode?: 'picker' | 'popup'
   /**
+   * 是否禁用
+   */
+  disabled?: boolean
+  /**
+   * 指定回显文字的样式
+   */
+  valueStyle?: StyleValue
+  /**
    * 未选择时的占位符
    */
   placeholder?: string
@@ -172,6 +189,8 @@ export interface GridPickerProps {
    */
   customStyle?: StyleValue
 }
+
+export type GridPickerInstance = InstanceType<typeof GridPicker>
 ```
 
 :::

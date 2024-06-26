@@ -93,7 +93,7 @@ export default defineConfig({
       provider: 'algolia',
       options: {
         appId: 'JMLTI8BUN7',
-        apiKey: '2d31957a49a6faaf1658c6c16976c76b',
+        apiKey: '690571f6920a5850000e05f31e75e76d',
         indexName: 'taoyiminio',
         locales: {
           root: {
@@ -618,6 +618,10 @@ export default defineConfig({
             {
               text: '最佳实践',
               link: '/mobile/practices'
+            },
+            {
+              text: '菜单配置',
+              link: '/mobile/menu'
             }
           ]
         },
@@ -633,12 +637,12 @@ export default defineConfig({
               link: '/mobile/components/audio-bubble'
             },
             {
-              text: 'calendar 日历选择器',
-              link: '/mobile/components/calendar'
-            },
-            {
               text: 'audio-recorder 语音录制',
               link: '/mobile/components/audio-recorder'
+            },
+            {
+              text: 'calendar 日历选择器',
+              link: '/mobile/components/calendar'
             },
             {
               text: 'data-checkbox 多选框',
@@ -669,6 +673,10 @@ export default defineConfig({
               link: '/mobile/components/dict-radio'
             },
             {
+              text: 'dropdown 下拉菜单',
+              link: '/mobile/components/dropdown'
+            },
+            {
               text: 'form 数据表单',
               link: '/mobile/components/form'
             },
@@ -683,6 +691,14 @@ export default defineConfig({
             {
               text: 'recorder-tip 录音提示',
               link: '/mobile/components/recorder-tip'
+            },
+            {
+              text: 'search-dropdown 下拉搜索',
+              link: '/mobile/components/search-dropdown'
+            },
+            {
+              text: 'sticky 吸顶',
+              link: '/mobile/components/sticky'
             },
             {
               text: 'upload 图片上传',

@@ -1,6 +1,7 @@
 # 自定义指令
 
 ## v-remove
+
 用于移除某一个dom元素，同时保留该dom元素所有的子元素。
 
 ```html
@@ -12,6 +13,7 @@
 ```
 
 最终将渲染：
+
 ```html
 <div class="content">内容1</div>
 <div class="content">内容2</div>
@@ -19,13 +21,17 @@
 ```
 
 ## v-authority
+
 如果当前登录用户拥有指令传入的权限标识，则渲染元素。
 
 ```html
 <button v-authority="'query'">查询</button>
+<!-- 支持传入多个权限标识 -->
+<button v-authority="['cxgh:query', 'system:query']">查询</button>
 ```
 
 ## v-env
+
 如果当前环境和传入的指令一致，则渲染元素。
 
 ```html
@@ -46,10 +52,13 @@
 
 <!-- 可以同时指定某个环境和某套环境 -->
 <!-- 等价于v-env="['development', 'production', 'dayunprod', 'nxprod'] -->
-<div v-env="['jiangxi', 'dayunprod', 'nxprod']">只有江西测试、江西生产、龘云生产、宁夏生产环境显示</div>
+<div v-env="['jiangxi', 'dayunprod', 'nxprod']">
+  只有江西测试、江西生产、龘云生产、宁夏生产环境显示
+</div>
 ```
 
 ## v-not-env
+
 如果当前环境和传入的指令不一致，则渲染元素，用法与`v-env`指令相同，功能相反。
 
 ```html
@@ -70,5 +79,7 @@
 
 <!-- 可以同时指定某个环境和某套环境 -->
 <!-- 等价于v-not-env="['development', 'production', 'dayunprod', 'nxprod'] -->
-<div v-not-env="['jiangxi', 'dayunprod', 'nxprod']">只有江西测试、江西生产、龘云生产、宁夏生产环境不显示</div>
+<div v-not-env="['jiangxi', 'dayunprod', 'nxprod']">
+  只有江西测试、江西生产、龘云生产、宁夏生产环境不显示
+</div>
 ```

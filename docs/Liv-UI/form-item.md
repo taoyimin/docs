@@ -5,6 +5,7 @@
 ## 基础用法
 
 :::demo
+
 ```vue
 <template>
   <liv-data-form :model="form" @submit="handleSubmit">
@@ -18,13 +19,10 @@
       v-model="form.textarea"
       field-type="textarea"
     ></liv-form-item>
-    <liv-form-item 
-      label="选择器" 
-      v-model="form.select" 
-      field-type="select">
-        <el-option label="选项1" value="1"></el-option>
-        <el-option label="选项2" value="2"></el-option>
-        <el-option label="选项3" value="3"></el-option>
+    <liv-form-item label="选择器" v-model="form.select" field-type="select">
+      <el-option label="选项1" value="1"></el-option>
+      <el-option label="选项2" value="2"></el-option>
+      <el-option label="选项3" value="3"></el-option>
     </liv-form-item>
     <liv-form-item
       label="级联选择器"
@@ -32,26 +30,25 @@
       field-type="cascader"
       :options="options"
     ></liv-form-item>
-    <liv-form-item 
-      label="单选框" 
-      v-model="form.radio" 
-      field-type="radio">
-        <el-radio label="1">选项1</el-radio>
-        <el-radio label="2">选项2</el-radio>
-        <el-radio label="3">选项3</el-radio>
+    <liv-form-item label="单选框" v-model="form.radio" field-type="radio">
+      <el-radio label="1">选项1</el-radio>
+      <el-radio label="2">选项2</el-radio>
+      <el-radio label="3">选项3</el-radio>
     </liv-form-item>
-    <liv-form-item 
-      label="复选框" 
-      v-model="form.checkbox" 
-      field-type="checkbox">
-        <el-checkbox label="1">选项1</el-checkbox>
-        <el-checkbox label="2">选项2</el-checkbox>
-        <el-checkbox label="3">选项3</el-checkbox>
+    <liv-form-item label="复选框" v-model="form.checkbox" field-type="checkbox">
+      <el-checkbox label="1">选项1</el-checkbox>
+      <el-checkbox label="2">选项2</el-checkbox>
+      <el-checkbox label="3">选项3</el-checkbox>
     </liv-form-item>
     <liv-form-item
       label="日期选择器"
       v-model="form.date"
       field-type="date"
+    ></liv-form-item>
+    <liv-form-item
+      label="时间选择器"
+      v-model="form.time"
+      field-type="time"
     ></liv-form-item>
     <liv-form-item
       label="开关"
@@ -63,15 +60,9 @@
       v-model="form.number"
       field-type="number"
     ></liv-form-item>
-    <liv-form-item 
-      label="评分" 
-      v-model="form.rate" 
-      field-type="rate">
+    <liv-form-item label="评分" v-model="form.rate" field-type="rate">
     </liv-form-item>
-    <liv-form-item 
-      label="颜色" 
-      v-model="form.color" 
-      field-type="color">
+    <liv-form-item label="颜色" v-model="form.color" field-type="color">
     </liv-form-item>
     <liv-form-item
       label="图片上传"
@@ -124,6 +115,7 @@ const form = ref({
   radio: '',
   checkbox: '',
   date: '',
+  time: '',
   switch: true,
   number: null,
   rate: null,
@@ -192,6 +184,7 @@ const handleSubmit = (form) => {
 }
 </script>
 ```
+
 :::
 
 ## 兼容fields
@@ -199,6 +192,7 @@ const handleSubmit = (form) => {
 表单项组件支持与`fields`属性一起使用，默认显示在`fields`生成的表单项之后，你可以通过`fieldIndex`属性指定表单项组件显示在第几行。
 
 :::demo
+
 ```vue
 <template>
   <liv-data-form :model="form" :fields="fields" @submit="handleSubmit">
@@ -234,8 +228,8 @@ const handleSubmit = (form) => {
   ElMessage.success(`提交的表单内容：${JSON.stringify(form)}`)
 }
 </script>
-
 ```
+
 :::
 
 ## 绑定原始值
@@ -243,16 +237,18 @@ const handleSubmit = (form) => {
 表单项组件内部对绑定数据进行了处理，会自动将数据转换为后端需要的格式，如果需要绑定原始值，可以通过`.raw`修饰符来实现。
 
 :::demo
+
 ```vue
 <template>
   <liv-data-form :model="form" @submit="handleSubmit">
-    <liv-form-item 
-      label="复选框" 
-      v-model.raw="form.checkbox" 
-      field-type="checkbox">
-        <el-checkbox label="1">选项1</el-checkbox>
-        <el-checkbox label="2">选项2</el-checkbox>
-        <el-checkbox label="3">选项3</el-checkbox>
+    <liv-form-item
+      label="复选框"
+      v-model.raw="form.checkbox"
+      field-type="checkbox"
+    >
+      <el-checkbox label="1">选项1</el-checkbox>
+      <el-checkbox label="2">选项2</el-checkbox>
+      <el-checkbox label="3">选项3</el-checkbox>
     </liv-form-item>
     <liv-form-item
       label="图片上传"
@@ -283,6 +279,7 @@ const handleSubmit = (form) => {
 }
 </script>
 ```
+
 :::
 
 ## 属性&插槽透传
@@ -290,6 +287,7 @@ const handleSubmit = (form) => {
 你可以透传[ElFormItem](https://element-plus.org/zh-CN/component/form.html#formitem-attributes)的所有属性，并且可以透传`fieldType`[对应渲染组件](#fieldtype可选值)的所有属性及插槽，同时你也可以透传任何自定义内容。
 
 :::demo
+
 ```vue
 <template>
   <liv-data-form :model="form" @submit="handleSubmit">
@@ -361,6 +359,7 @@ const handleSubmit = () => {
 }
 </style>
 ```
+
 :::
 
 ## 网格布局
@@ -368,6 +367,7 @@ const handleSubmit = () => {
 通过`fieldIndex`属性，你可以控制表单项显示在第几行，`fieldIndex`相同表示显示在同一行。
 
 :::demo
+
 ```vue
 <template>
   <liv-data-form :model="form">
@@ -423,6 +423,7 @@ const form = ref({
 })
 </script>
 ```
+
 :::
 
 ## 动态表单
@@ -430,6 +431,7 @@ const form = ref({
 相比直接使用`fields`属性生成表单，使用表单项组件拥有更高的灵活性和扩展性，可以轻松实现复杂的动态表单。下面是一个表单项数据联动示例，根据选中的事件类型去初始化事件描述的数据。
 
 :::demo
+
 ```vue
 <template>
   <liv-data-form :model="form" @submit="handleSubmit">
@@ -461,12 +463,14 @@ const handleSubmit = (form) => {
 }
 </script>
 ```
+
 :::
 
 ## 表单校验
 
 表单项内部封装了默认的校验逻辑，只需传入`required`属性即可自动生成校验规则。如果传入了`rules`自定义校验规则或者不设置`fieldType`属性传入自定义的表单项内容，则需要设置`prop`属性指定需要校验的`model`键名。
 :::demo
+
 ```vue
 <template>
   <liv-data-form :model="form" @submit="handleSubmit">
@@ -520,28 +524,39 @@ const handleSubmit = (form) => {
 }
 </script>
 ```
+
 :::
 
 ## 属性
 
-| 属性名 | 说明 | 类型 | 可选值 | 默认值 |
-| ------ | ------ | ------ | ------ | ------ |
-| fieldType | 表单项类型 | `enum` | `input` `textarea`  `select`  `dict` `dictId`  `grid`  `gridId`  `date`  `radio`  `checkbox`  `number`  `rate`  `switch`  `image`  `audio` `video`  `file` `location` | — |
-| fieldIndex | 表单项下标，用于控制显示在第几行 | `string` `number` | — | — |
+| 属性名     | 说明                             | 类型              | 可选值                                                                                                                                                          | 默认值 |
+| ---------- | -------------------------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| fieldType  | 表单项类型                       | `enum`            | `input` `textarea` `select` `dict` `dictId` `grid` `gridId` `date` `time` `radio` `checkbox` `number` `rate` `switch` `image` `audio` `video` `file` `location` | —      |
+| fieldIndex | 表单项下标，用于控制显示在第几行 | `string` `number` | —                                                                                                                                                               | —      |
 
 ### fieldType可选值
-| 字段类型 | 说明 | 对应的渲染组件 |
-| ------ | ------ | ------ |
-| `input` `textarea` | 输入框 | [ElInput](https://element-plus.org/zh-CN/component/input.html#attributes) |
-| `select` | 选择器 | [ElSelect](https://element-plus.org/zh-CN/component/select.html#select-attributes)<[ElOption](https://element-plus.org/zh-CN/component/select.html#option-attributes)[]> |
-| `date` | 日期选择器 | [ElDatePicker](https://element-plus.org/zh-CN/component/date-picker.html#attributes) |
-| `radio` | 单选框 | [ElRadioGroup](https://element-plus.org/zh-CN/component/radio.html#radiogroup-attributes)<[ElRadio](https://element-plus.org/zh-CN/component/radio.html#radio-attributes)[]> |
-| `checkbox` | 多选框 | [ElCheckboxGroup](https://element-plus.org/zh-CN/component/checkbox.html#checkboxgroup-attributes)<[ElCheckbox](https://element-plus.org/zh-CN/component/checkbox.html#checkbox-attributes)[]> |
-| `number` | 数字输入框 | [ElInputNumber](https://element-plus.org/zh-CN/component/input-number.html#attributes) |
-| `rate` | 评分 | [ElRate](https://element-plus.org/zh-CN/component/rate.html#attributes) |
-| `switch` | 开关 | [ElSwitch](https://element-plus.org/zh-CN/component/switch.html#attributes) |
-| `image` `audio` `video` `file` | 图片/音频/视频/文件上传 | [ElUpload](https://element-plus.org/zh-CN/component/upload.html#%E5%B1%9E%E6%80%A7) |
-| `dict` `dictId` | 字典选择器 | [DictSelect](/Liv-UI/dict-select) |
-| `grid` `gridId` | 网格选择器 | [GridCascader](/Liv-UI/grid-cascader) |
-| `personnel` | 人员选择器 | [PersonnelSelect](/Liv-UI/personnel-select) |
-| `location` | 地图选点 | [LocationPicker](/Liv-UI/location-picker) |
+
+| 字段类型                       | 说明                    | 对应的渲染组件                                                                                                                                                                                 |
+| ------------------------------ | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `input` `textarea`             | 输入框                  | [ElInput](https://element-plus.org/zh-CN/component/input.html#attributes)                                                                                                                      |
+| `select`                       | 选择器                  | [ElSelect](https://element-plus.org/zh-CN/component/select.html#select-attributes)<[ElOption](https://element-plus.org/zh-CN/component/select.html#option-attributes)[]>                       |
+| `date`                         | 日期选择器              | [ElDatePicker](https://element-plus.org/zh-CN/component/date-picker.html#attributes)                                                                                                           |
+| `time`                         | 时间选择器              | [ElTimePicker](https://element-plus.org/zh-CN/component/time-picker.html#attributes)                                                                                                           |
+| `radio`                        | 单选框                  | [ElRadioGroup](https://element-plus.org/zh-CN/component/radio.html#radiogroup-attributes)<[ElRadio](https://element-plus.org/zh-CN/component/radio.html#radio-attributes)[]>                   |
+| `checkbox`                     | 多选框                  | [ElCheckboxGroup](https://element-plus.org/zh-CN/component/checkbox.html#checkboxgroup-attributes)<[ElCheckbox](https://element-plus.org/zh-CN/component/checkbox.html#checkbox-attributes)[]> |
+| `number`                       | 数字输入框              | [ElInputNumber](https://element-plus.org/zh-CN/component/input-number.html#attributes)                                                                                                         |
+| `rate`                         | 评分                    | [ElRate](https://element-plus.org/zh-CN/component/rate.html#attributes)                                                                                                                        |
+| `switch`                       | 开关                    | [ElSwitch](https://element-plus.org/zh-CN/component/switch.html#attributes)                                                                                                                    |
+| `image` `audio` `video` `file` | 图片/音频/视频/文件上传 | [ElUpload](https://element-plus.org/zh-CN/component/upload.html#%E5%B1%9E%E6%80%A7)                                                                                                            |
+| `dict` `dictId`                | 字典选择器              | [DictSelect](/Liv-UI/dict-select)                                                                                                                                                              |
+| `grid` `gridId`                | 网格选择器              | [GridCascader](/Liv-UI/grid-cascader)                                                                                                                                                          |
+| `personnel`                    | 人员选择器              | [PersonnelSelect](/Liv-UI/personnel-select)                                                                                                                                                    |
+| `location`                     | 地图选点                | [LocationPicker](/Liv-UI/location-picker)                                                                                                                                                      |
+
+## 插槽
+
+## 插槽
+
+| 插槽名 | 说明           | 作用域 |
+| ------ | -------------- | ------ |
+| right  | 表单项右侧内容 | —      |

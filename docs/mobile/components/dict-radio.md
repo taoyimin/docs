@@ -8,7 +8,7 @@
 
 ```vue
 <template>
-  <liv-data-radio v-model="value" dict-type="eventType" />
+  <liv-dict-radio v-model="value" dict-type="eventType" />
 </template>
 
 <script setup lang="ts">
@@ -24,7 +24,7 @@ const value = ref('')
 
 ```vue
 <template>
-  <liv-data-radio
+  <liv-dict-radio
     v-model="value"
     v-model:dict-id="dictId"
     v-model:dict-name="dictName"
@@ -52,12 +52,12 @@ const dict = ref()
 
 ```vue
 <template>
-  <liv-data-radio
+  <liv-dict-radio
     v-model="parentValue"
     v-model:dict-id="parentId"
     dict-type="eventType"
   />
-  <liv-data-radio v-model="childValue" :parent-id="parentId" />
+  <liv-dict-radio v-model="childValue" :parent-id="parentId" />
 </template>
 
 <script setup lang="ts">
@@ -84,10 +84,17 @@ const parentId = ref()
 
 除了上述属性，你还可以透传[LivDataRadio](./data-radio.md)组件的所有属性。
 
+## Exposes
+
+| 名称 | 说明     | 类型     | 可选值 | 默认值 |
+| ---- | -------- | -------- | ------ | ------ |
+| data | 组件数据 | `Dict[]` | —      | []     |
+
 ::: details 类型声明
 
 ```ts
 import type { StyleValue } from 'vue'
+import DictRadio from './dict-radio.vue'
 
 export interface DictRadioProps {
   /**
@@ -103,6 +110,8 @@ export interface DictRadioProps {
    */
   customStyle?: StyleValue
 }
+
+export type DictRadioInstance = InstanceType<typeof DictRadio>
 ```
 
 :::

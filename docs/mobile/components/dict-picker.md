@@ -61,7 +61,9 @@ const dict = ref()
   <liv-dict-picker
     v-model="childValue"
     :parent-id="parentId"
+    :disabled="!parentId"
     title="请选择问题描述"
+    @click="childClick"
   />
 </template>
 
@@ -73,6 +75,15 @@ const parentValue = ref('')
 const childValue = ref('')
 
 const parentId = ref()
+
+function childClick() {
+  if (!parentId.value) {
+    uni.showToast({
+      title: '请先选择问题类型',
+      icon: 'none'
+    })
+  }
+}
 </script>
 ```
 
@@ -111,6 +122,12 @@ const value = ref('')
 
 除了上述属性，你还可以透传[LivDataPicker](./data-picker.md)组件的所有属性。
 
+## 事件
+
+| 事件名 | 说明       | 类型       | 可选值            | 默认值 |
+| ------ | ---------- | ---------- | ----------------- | ------ |
+| change | 选中值改变 | `Function` | `(value) => void` | —      |
+
 ## 插槽
 
 | 插槽名 | 说明             | 作用域 |
@@ -118,10 +135,18 @@ const value = ref('')
 | prefix | 回显区域前置内容 | —      |
 | suffix | 回显区域后置内容 | —      |
 
+## Exposes
+
+| 名称 | 说明     | 类型     | 可选值 | 默认值 |
+| ---- | -------- | -------- | ------ | ------ |
+| data | 组件数据 | `Dict[]` | —      | []     |
+
 ::: details 类型声明
 
 ```ts
 import type { StyleValue } from 'vue'
+import DictPicker from './dict-picker.vue'
+import type { Dict } from '@szxc/apis'
 
 export interface DictPickerProps {
   /**
@@ -137,6 +162,12 @@ export interface DictPickerProps {
    */
   customStyle?: StyleValue
 }
+
+export type DictPickerEmits = {
+  change: [value: Dict | undefined]
+}
+
+export type DictPickerInstance = InstanceType<typeof DictPicker>
 ```
 
 :::

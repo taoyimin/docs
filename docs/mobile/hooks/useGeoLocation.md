@@ -19,6 +19,10 @@ const { coords, error, getLocation } = useGeoLocation()
 </script>
 ```
 
+:::tip 提示
+PC端调试定位功能，Google浏览器可能获取不到经纬度，可以尝试使用Edge等其他浏览器。
+:::
+
 ## Result
 
 | 参数名      | 说明         | 类型                                                          | 默认值 |

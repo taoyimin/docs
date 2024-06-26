@@ -23,14 +23,46 @@ const { files, urls, afterRead, deleteFile } = useUviewUpload()
 </script>
 ```
 
+## 限制上传文件格式
+
+```vue
+<template>
+  <view>网络路径：{{ urls }}</view>
+  <up-upload
+    :fileList="files"
+    @afterRead="afterRead"
+    @delete="deleteFile"
+    multiple
+    accept="file"
+    :maxCount="3"
+  >
+    <up-button>文件上传</up-button>
+  </up-upload>
+</template>
+
+<script lang="ts" setup>
+import { useUviewUpload } from 'liv-uni'
+
+const { files, urls, afterRead, deleteFile } = useUviewUpload({
+  extension: ['docx', 'pdf']
+})
+</script>
+```
+
+## 参数
+
+| 参数名    | 说明                 | 类型       | 默认值 |
+| --------- | -------------------- | ---------- | ------ | --- |
+| extension | 允许上传文件的扩展名 | `string[]` | —      | []  |
+
 ## Result
 
-| 参数名     | 说明                       | 类型                       | 默认值 |
-| ---------- | -------------------------- | -------------------------- | ------ |
-| files      | 选中的文件列表             | `UploadFile[]`             | []     |
-| urls       | 上传后的文件地址，逗号拼接 | `string`                   | —      |
-| afterRead  | 读取后的处理函数           | `(e: UploadEvent) => void` | —      |
-| deleteFile | 点击删除按钮的处理函数     | `(e: UploadEvent) => void` | —      |
+| 参数名     | 说明                   | 类型                       | 默认值 |
+| ---------- | ---------------------- | -------------------------- | ------ | --- |
+| urls       | 上传后的文件地址       | `string[]`                 | —      | []  |
+| files      | 选中的文件列表         | `UploadFile[]`             | —      | []  |
+| afterRead  | 读取后的处理函数       | `(e: UploadEvent) => void` | —      | —   |
+| deleteFile | 点击删除按钮的处理函数 | `(e: UploadEvent) => void` | —      | —   |
 
 ::: details 类型声明
 
@@ -41,11 +73,17 @@ interface UploadEvent {
   file: UploadFile | UploadFile[]
 }
 
-interface UploadFile {
+export interface UploadFile {
   url: string
   relativeUrl: string
   status: 'uploading' | 'success' | 'failed'
-  message: string
+  message?: string
+  name: string
+  size?: number
+}
+
+export interface UploadOptions {
+  extension?: string[]
 }
 ```
 

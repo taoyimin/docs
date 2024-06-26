@@ -8,7 +8,7 @@ outline: 2
 
 ### Features
 
-- **components** `GridCascader`网格选择器组件新增[控制网格级别](/Liv-UI/grid-cascader#控制网格级别)属性 
+- **components** `GridCascader`网格选择器组件新增[控制网格级别](/Liv-UI/grid-cascader#控制网格级别)属性
 
 ## 2024-3-12
 

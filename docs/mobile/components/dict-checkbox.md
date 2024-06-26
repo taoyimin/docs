@@ -1,4 +1,4 @@
-# 字典单选框
+# 字典多选框
 
 基于[DataCheckbox](./data-checkbox.md)组件进行二次封装，支持展示一级、二级、三级字典，并且支持更多参数的双向绑定。
 
@@ -8,13 +8,13 @@
 
 ```vue
 <template>
-  <liv-data-checkbox v-model="value" dict-type="eventType" />
+  <liv-dict-checkbox v-model="value" dict-type="eventType" />
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const value = ref('')
+const value = ref([])
 </script>
 ```
 
@@ -24,7 +24,7 @@ const value = ref('')
 
 ```vue
 <template>
-  <liv-data-checkbox
+  <liv-dict-checkbox
     v-model="value"
     v-model:dict-id="dictId"
     v-model:dict-name="dictName"
@@ -36,13 +36,13 @@ const value = ref('')
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const value = ref('')
+const value = ref([])
 
-const dictId = ref()
+const dictId = ref([])
 
-const dictName = ref('')
+const dictName = ref([])
 
-const dict = ref()
+const dict = ref([])
 </script>
 ```
 
@@ -59,10 +59,23 @@ const dict = ref()
 
 除了上述属性，你还可以透传[LivDataCheckbox](./data-checkbox.md)组件的所有属性。
 
+## 事件
+
+| 事件名 | 说明       | 类型       | 可选值            | 默认值 |
+| ------ | ---------- | ---------- | ----------------- | ------ |
+| change | 选中值改变 | `Function` | `(value) => void` | —      |
+
+## Exposes
+
+| 名称 | 说明     | 类型     | 可选值 | 默认值 |
+| ---- | -------- | -------- | ------ | ------ |
+| data | 组件数据 | `Dict[]` | —      | []     |
+
 ::: details 类型声明
 
 ```ts
 import type { StyleValue } from 'vue'
+import DictCheckbox from './dict-checkbox.vue'
 
 export interface DictCheckboxProps {
   /**
@@ -78,6 +91,8 @@ export interface DictCheckboxProps {
    */
   customStyle?: StyleValue
 }
+
+export type DictCheckboxInstance = InstanceType<typeof DictCheckbox>
 ```
 
 :::

@@ -5,6 +5,7 @@
 ## 基础用法
 
 :::demo
+
 ```vue
 <template>
   <liv-data-form :fields="fields" :model="form" @submit="handleSubmit" />
@@ -21,6 +22,7 @@ const form = ref({
   radio: '',
   checkbox: '',
   date: '',
+  time: '',
   switch: true,
   number: null,
   rate: null,
@@ -163,6 +165,11 @@ const fields = [
     fieldType: 'date'
   },
   {
+    prop: 'time',
+    label: '时间选择器',
+    fieldType: 'time'
+  },
+  {
     prop: 'switch',
     label: '开关',
     fieldType: 'switch'
@@ -230,6 +237,7 @@ const handleSubmit = (form) => {
 }
 </script>
 ```
+
 :::
 :::warning 注意
 如果表单组件中使用了富文本编辑器，在不使用的时候需要及时销毁表单组件，例如在ElDialog组件中使用，推荐设置`destroy-on-close`属性为`true`。
@@ -240,6 +248,7 @@ const handleSubmit = (form) => {
 [fieldData](#field)属性除了传入`Array`，还支持传入`getter`方法和`Promise`对象，[ElSelect](https://element-plus.org/zh-CN/component/select.html#select-attributes)、[ElRadio](https://element-plus.org/zh-CN/component/radio.html#radio-attributes)、[ElCheckbox](https://element-plus.org/zh-CN/component/checkbox.html#checkbox-attributes)等需要手动设置数据源的组件可以通过传入`getter`方法和`Promise`对象实现动态加载数据。
 
 :::demo
+
 ```vue
 <template>
   <liv-data-form :fields="fields" :model="form" />
@@ -313,6 +322,7 @@ const fields = [
 ]
 </script>
 ```
+
 :::
 
 ::: tip 提示
@@ -328,6 +338,7 @@ const fields = [
 表单内部封装了提交、重置、返回、查询、新增、批量删除六个常用按钮，监听相应事件后自动渲染，默认不渲染。你可以通过`()`设置权限标识，如果当前登录用户没有该按钮权限，则按钮不会被渲染。
 
 :::demo
+
 ```vue
 <template>
   <liv-data-form
@@ -335,7 +346,7 @@ const fields = [
     :model="form"
     @submit(demoAuthority)="handleSubmit"
     @reset="handleReset"
-    @back="handleBack"
+    @back(demoAuthority|delete)="handleBack"
   />
 </template>
 
@@ -383,10 +394,11 @@ const handleReset = (_form, formEl) => {
 }
 
 const handleBack = () => {
-  ElMessage.info('点击了返回按钮')
+  ElMessage.success(`点击了带demoAuthority和back权限标识的返回按钮`)
 }
 </script>
 ```
+
 :::
 
 ## 自定义按钮
@@ -394,6 +406,7 @@ const handleBack = () => {
 除了使用组件内部封装好的按钮，你还可以使用[`buttons`](#属性)属性根据业务需要传入自定义按钮。你可以通过`authority`属性给按钮添加权限标识，如果当前登录用户没有该权限标识，则按钮不会被渲染。
 
 :::demo
+
 ```vue
 <template>
   <liv-data-form
@@ -444,16 +457,17 @@ const buttons = [
   {
     name: '暂存',
     type: 'warning',
+    authority: 'demoAuthority',
     onClick: () => {
-      ElMessage.warning('点击了暂存按钮')
+      ElMessage.warning('点击了带demoAuthority权限标识的暂存按钮')
     }
   },
   {
     name: '清空',
     type: 'danger',
-    authority: 'demoAuthority',
+    authority: ['demoAuthority', 'clear'],
     onClick: () => {
-      ElMessage.error('点击了带demoAuthority权限标识的清空按钮')
+      ElMessage.error('点击了带demoAuthority和clear权限标识的清空按钮')
     }
   }
 ]
@@ -463,6 +477,7 @@ const handleSubmit = (form) => {
 }
 </script>
 ```
+
 :::
 
 ## 行内表单
@@ -470,6 +485,7 @@ const handleSubmit = (form) => {
 通过`inline`属性，你可以用该组件来生成搜索栏，因为搜索栏本质上也是一个表单。
 
 :::demo
+
 ```vue
 <template>
   <liv-data-form
@@ -510,6 +526,7 @@ const handleBatchDelete = () => {
 }
 </script>
 ```
+
 :::
 
 ## 网格布局
@@ -517,6 +534,7 @@ const handleBatchDelete = () => {
 传入二维数组形式的`fields`可以生成网格布局的表单，默认平分宽度，可以通过`span`属性控制每个表单项的宽度，`span`为24表示占满整行。
 
 :::demo
+
 ```vue
 <template>
   <liv-data-form :fields="fields" :model="form" />
@@ -577,6 +595,7 @@ const fields = [
 ]
 </script>
 ```
+
 :::
 
 ::: warning 注意
@@ -588,6 +607,7 @@ const fields = [
 在某些业务场景，例如修改详情功能，表单可能需要设置默认值，并且某些字段仅作为修改接口的参数，并不需要渲染在页面上。你可以通过`model`属性来实现表单数据的双向绑定，并且不设置`fieldType`字段实现把相关字段放在表单数据中，但是不进行渲染。
 
 :::demo
+
 ```vue
 <template>
   <liv-data-form :fields="fields" :model="form" @submit="handleSubmit" />
@@ -664,6 +684,7 @@ const handleSubmit = (form) => {
 }
 </script>
 ```
+
 :::
 
 ## 动态表单
@@ -671,6 +692,7 @@ const handleSubmit = (form) => {
 通过传入响应式的`field`配置，可以实现表单内容的动态切换。如果需要在`.vue`文件中动态修改`field`配置，可以在`.ts`文件中定义响应式数据并导出，然后在`.vue`文件中导入使用。
 
 :::demo
+
 ```vue
 <template>
   <liv-data-form :fields="fields" :model="form" @submit="handleSubmit" />
@@ -725,9 +747,11 @@ const handleSubmit = (form) => {
 }
 </script>
 ```
+
 :::
 
 ::: details FormTestFields.ts
+
 ```ts
 import { ref } from 'vue'
 
@@ -763,6 +787,7 @@ export const fields = [
   }
 ]
 ```
+
 :::
 
 :::tip
@@ -773,6 +798,7 @@ export const fields = [
 
 表单内部封装了校验逻辑，只有`required`属性为true的表单项才会自动生成校验规则。你可以通过给`buttons`属性中的按钮设置`validate`属性来开启表单校验，表单内置的提交和查询按钮`validate`属性默认为true。
 :::demo
+
 ```vue
 <template>
   <liv-data-form
@@ -863,6 +889,7 @@ const handleSubmit = () => {
 }
 </script>
 ```
+
 :::
 
 ## 自定义校验规则
@@ -870,6 +897,7 @@ const handleSubmit = () => {
 你可以通过`rules`属性给每个表单项传入自定义校验规则，`rules`支持传入数组，并按顺序同时校验多个自定义规则。在`utils`包中封装了一些常用[校验规则](/utils/form-validate)可以直接使用。
 
 :::demo
+
 ```vue
 <template>
   <liv-data-form :fields="fields" :model="form" @submit="handleSubmit" />
@@ -956,6 +984,7 @@ const handleSubmit = () => {
 }
 </script>
 ```
+
 :::
 
 ## 属性透传
@@ -963,6 +992,7 @@ const handleSubmit = () => {
 Data Form基于[ElForm](https://element-plus.org/zh-CN/component/form.html#form-attributes)封装，所以你可以传入[ElForm](https://element-plus.org/zh-CN/component/form.html#form-attributes)的所有属性和事件，并且在字段配置属性`fields`中，根据`fieldType`的不同，你可以透传属性和事件给对应的渲染组件，具体`fieldType`对应的渲染组件请查看[fieldType可选值](#fieldtype可选值)。
 
 :::demo
+
 ```vue
 <template>
   <liv-data-form :fields="fields" :model="form" @submit="handleSubmit" />
@@ -1007,7 +1037,7 @@ const fields = [
       }
     ]
   },
-    {
+  {
     prop: 'date',
     label: '日期选择器',
     fieldType: 'date',
@@ -1042,7 +1072,7 @@ const fields = [
             maxFileSize: 1 * 1024 * 1024,
             onError(file: File, err: any, res: any) {
               ElMessage.error(`${file.name} 上传出错：${err.message}`)
-            },
+            }
           }
         }
       }
@@ -1055,48 +1085,51 @@ const handleSubmit = (form) => {
 }
 </script>
 ```
+
 :::
 
 ## 属性
 
-| 属性名 | 说明 | 类型 | 可选值 | 默认值 |
-| ------ | ------ | ------ | ------ | ------ |
-| model | 表单数据 | `Record<string, any>` | — | — |
-| fields | 字段配置信息 | [`Array<Field>`](#field) | — | [] |
-| buttons | 自定义按钮 | [`Array<Elbutton>`](https://element-plus.org/zh-CN/component/button.html#button-attributes) | — | [] |
+| 属性名  | 说明         | 类型                                                                                        | 可选值 | 默认值 |
+| ------- | ------------ | ------------------------------------------------------------------------------------------- | ------ | ------ |
+| model   | 表单数据     | `Record<string, any>`                                                                       | —      | —      |
+| fields  | 字段配置信息 | [`Array<Field>`](#field)                                                                    | —      | []     |
+| buttons | 自定义按钮   | [`Array<Elbutton>`](https://element-plus.org/zh-CN/component/button.html#button-attributes) | —      | []     |
 
 ### Field
 
-| 属性名 | 说明 | 类型 | 可选值 | 默认值 |
-| ------ | ------ | ------ | ------ | ------ |
-| fieldType | 字段类型，不传则不渲染该字段的表单项 | `enum` | `input` `textarea`  `select`  `dict` `dictId`  `grid`  `gridId`  `date`  `radio`  `checkbox`  `number`  `rate`  `switch`  `image`  `audio` `video`  `file` `location` | — |
-| fieldData | 当渲染的组件为[ElSelect](https://element-plus.org/zh-CN/component/select.html#select-attributes)、[ElRadio](https://element-plus.org/zh-CN/component/radio.html#radio-attributes)、[ElCheckbox](https://element-plus.org/zh-CN/component/checkbox.html#checkbox-attributes)等需要手动设置数据源的组件时，可以用过该字段传入数据源， | `Array` / `getter` / `Promise` | — | —  |
+| 属性名    | 说明                                                                                                                                                                                                                                                                                                                                | 类型                           | 可选值                                                                                                                                                          | 默认值 |
+| --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| fieldType | 字段类型，不传则不渲染该字段的表单项                                                                                                                                                                                                                                                                                                | `enum`                         | `input` `textarea` `select` `dict` `dictId` `grid` `gridId` `date` `time` `radio` `checkbox` `number` `rate` `switch` `image` `audio` `video` `file` `location` | —      |
+| fieldData | 当渲染的组件为[ElSelect](https://element-plus.org/zh-CN/component/select.html#select-attributes)、[ElRadio](https://element-plus.org/zh-CN/component/radio.html#radio-attributes)、[ElCheckbox](https://element-plus.org/zh-CN/component/checkbox.html#checkbox-attributes)等需要手动设置数据源的组件时，可以用过该字段传入数据源， | `Array` / `getter` / `Promise` | —                                                                                                                                                               | —      |
 
 ### fieldType可选值
-| 字段类型 | 说明 | 对应的渲染组件 |
-| ------ | ------ | ------ |
-| `input` `textarea` | 输入框 | [ElInput](https://element-plus.org/zh-CN/component/input.html#attributes) |
-| `select` | 选择器 | [ElSelect](https://element-plus.org/zh-CN/component/select.html#select-attributes)<[ElOption](https://element-plus.org/zh-CN/component/select.html#option-attributes)[]> |
-| `date` | 日期选择器 | [ElDatePicker](https://element-plus.org/zh-CN/component/date-picker.html#attributes) |
-| `radio` | 单选框 | [ElRadioGroup](https://element-plus.org/zh-CN/component/radio.html#radiogroup-attributes)<[ElRadio](https://element-plus.org/zh-CN/component/radio.html#radio-attributes)[]> |
-| `checkbox` | 多选框 | [ElCheckboxGroup](https://element-plus.org/zh-CN/component/checkbox.html#checkboxgroup-attributes)<[ElCheckbox](https://element-plus.org/zh-CN/component/checkbox.html#checkbox-attributes)[]> |
-| `number` | 数字输入框 | [ElInputNumber](https://element-plus.org/zh-CN/component/input-number.html#attributes) |
-| `rate` | 评分 | [ElRate](https://element-plus.org/zh-CN/component/rate.html#attributes) |
-| `switch` | 开关 | [ElSwitch](https://element-plus.org/zh-CN/component/switch.html#attributes) |
-| `image` `audio` `video` `file` | 图片/音频/视频/文件上传 | [ElUpload](https://element-plus.org/zh-CN/component/upload.html#%E5%B1%9E%E6%80%A7) |
-| `dict` `dictId`  | 字典选择器 | [DictSelect](/Liv-UI/dict-select) |
-| `grid` `gridId` | 网格选择器 | [GridCascader](/Liv-UI/grid-cascader) |
-| `personnel` | 人员选择器 | [PersonnelSelect](/Liv-UI/personnel-select) |
-| `location` | 地图选点 | [LocationPicker](/Liv-UI/location-picker) |
-| `richText` | 富文本编辑器 | [WangEditor](https://www.wangeditor.com) |
+
+| 字段类型                       | 说明                    | 对应的渲染组件                                                                                                                                                                                 |
+| ------------------------------ | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `input` `textarea`             | 输入框                  | [ElInput](https://element-plus.org/zh-CN/component/input.html#attributes)                                                                                                                      |
+| `select`                       | 选择器                  | [ElSelect](https://element-plus.org/zh-CN/component/select.html#select-attributes)<[ElOption](https://element-plus.org/zh-CN/component/select.html#option-attributes)[]>                       |
+| `date`                         | 日期选择器              | [ElDatePicker](https://element-plus.org/zh-CN/component/date-picker.html#attributes)                                                                                                           |
+| `time`                         | 时间选择器              | [ElTimePicker](https://element-plus.org/zh-CN/component/time-picker.html#attributes)                                                                                                           |
+| `radio`                        | 单选框                  | [ElRadioGroup](https://element-plus.org/zh-CN/component/radio.html#radiogroup-attributes)<[ElRadio](https://element-plus.org/zh-CN/component/radio.html#radio-attributes)[]>                   |
+| `checkbox`                     | 多选框                  | [ElCheckboxGroup](https://element-plus.org/zh-CN/component/checkbox.html#checkboxgroup-attributes)<[ElCheckbox](https://element-plus.org/zh-CN/component/checkbox.html#checkbox-attributes)[]> |
+| `number`                       | 数字输入框              | [ElInputNumber](https://element-plus.org/zh-CN/component/input-number.html#attributes)                                                                                                         |
+| `rate`                         | 评分                    | [ElRate](https://element-plus.org/zh-CN/component/rate.html#attributes)                                                                                                                        |
+| `switch`                       | 开关                    | [ElSwitch](https://element-plus.org/zh-CN/component/switch.html#attributes)                                                                                                                    |
+| `image` `audio` `video` `file` | 图片/音频/视频/文件上传 | [ElUpload](https://element-plus.org/zh-CN/component/upload.html#%E5%B1%9E%E6%80%A7)                                                                                                            |
+| `dict` `dictId`                | 字典选择器              | [DictSelect](/Liv-UI/dict-select)                                                                                                                                                              |
+| `grid` `gridId`                | 网格选择器              | [GridCascader](/Liv-UI/grid-cascader)                                                                                                                                                          |
+| `personnel`                    | 人员选择器              | [PersonnelSelect](/Liv-UI/personnel-select)                                                                                                                                                    |
+| `location`                     | 地图选点                | [LocationPicker](/Liv-UI/location-picker)                                                                                                                                                      |
+| `richText`                     | 富文本编辑器            | [WangEditor](https://www.wangeditor.com)                                                                                                                                                       |
 
 ## 事件
 
-| 事件名 | 说明 | 类型 | 可选值 | 默认值 |
-| ------ | ------ | ------ | ------ | ------ |
-| submit | 点击提交按钮时，内部会对表单进行校验，校验通过后才会触发 | `Function` | `(form, formEl) => void` | — |
-| rest | 点击重置按钮时触发 | `Function` | `(form, formEl) => void` | — |
-| back | 点击返回按钮时触发 | `Function` | `(form, formEl) => void` | — |
-| search | 点击查询按钮时，内部会对表单进行校验，校验通过后才会触发 | `Function` | `(form, formEl) => void` | — |
-| add | 点击新增按钮时触发 | `Function` | `(form, formEl) => void` | — |
-| batchDelete | 点击批量删除按钮时触发 | `Function` | `(form, formEl) => void` | — |
+| 事件名      | 说明                                                     | 类型       | 可选值                   | 默认值 |
+| ----------- | -------------------------------------------------------- | ---------- | ------------------------ | ------ |
+| submit      | 点击提交按钮时，内部会对表单进行校验，校验通过后才会触发 | `Function` | `(form, formEl) => void` | —      |
+| rest        | 点击重置按钮时触发                                       | `Function` | `(form, formEl) => void` | —      |
+| back        | 点击返回按钮时触发                                       | `Function` | `(form, formEl) => void` | —      |
+| search      | 点击查询按钮时，内部会对表单进行校验，校验通过后才会触发 | `Function` | `(form, formEl) => void` | —      |
+| add         | 点击新增按钮时触发                                       | `Function` | `(form, formEl) => void` | —      |
+| batchDelete | 点击批量删除按钮时触发                                   | `Function` | `(form, formEl) => void` | —      |

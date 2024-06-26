@@ -122,6 +122,13 @@
     />
     <liv-form-item
       required
+      item-type="audio"
+      label="语音上传"
+      prop="audioUrl"
+      v-model="form.audioUrl"
+    />
+    <liv-form-item
+      required
       item-type="image"
       label="图片上传"
       prop="imageUrl"
@@ -129,10 +136,25 @@
     />
     <liv-form-item
       required
-      item-type="audio"
-      label="语音上传"
-      prop="voiceUrl"
-      v-model="form.voiceUrl"
+      item-type="video"
+      label="视频上传"
+      prop="videoUrl"
+      v-model="form.videoUrl"
+    />
+    <liv-form-item
+      required
+      item-type="media"
+      label="媒体上传"
+      prop="mediaUrl"
+      v-model="form.mediaUrl"
+    />
+    <liv-form-item
+      required
+      item-type="file"
+      label="文件上传"
+      prop="fileUrl"
+      v-model="form.fileUrl"
+      :extension="['docx', 'pdf']"
     />
   </liv-form>
   <up-button
@@ -157,18 +179,21 @@ const form = reactive({
   gridCode: '',
   picker: '',
   radio: '',
-  checkbox: [],
+  checkbox: '',
   dict: '',
   dictId: NaN,
   dictRadio: '',
-  dictCheckbox: [],
+  dictCheckbox: '',
   date: '',
   startDate: '',
   endDate: '',
   calendar: '',
   gridId: '',
+  audioUrl: '',
   imageUrl: '',
-  voiceUrl: ''
+  videoUrl: '',
+  mediaUrl: '',
+  fileUrl: ''
 })
 
 const data = [
@@ -199,7 +224,43 @@ function submit() {
 </script>
 ```
 
-## 表单校验
+:::tip 提示
+表单组件内部已经封装了默认的校验规则，需要校验的表单项只需传入`required`和`prop`属性即可。
+:::
+
+## 绑定原始值
+
+为了方便表单数据的提交和回显，表单组件内部对一些组件的绑定值做了特殊处理（例如多选框、图片上传等组件会自动使用逗号拼接），使用表单项组件进行双向绑定时拿到的值已经是拼接好的值，如果需要绑定原始的数据类型，可以使用`.raw`修饰符。
+
+```vue
+<template>
+  <view>imageUrl：{{ form.imageUrl }}</view>
+  <view>imageList：{{ form.imageList }}</view>
+  <liv-form :model="form">
+    <liv-form-item
+      item-type="image"
+      label="图片上传（逗号拼接）"
+      v-model="form.imageUrl"
+    />
+    <liv-form-item
+      item-type="image"
+      label="图片上传（数组类型）"
+      v-model.raw="form.imageList"
+    />
+  </liv-form>
+</template>
+
+<script setup lang="ts">
+import { reactive } from 'vue'
+
+const form = reactive({
+  imageUrl: '',
+  imageList: []
+})
+</script>
+```
+
+## 自定义校验规则
 
 表单组件内部会自动根据表单项的`required`和`prop`属性生成默认校验规则，如果需要自定义校验规则，可以通过`rules`属性覆盖默认校验规则。
 
@@ -307,6 +368,7 @@ function submit() {
       v-model:range-end="form.endDate"
       mode="year-month"
       format="YYYY年MM月"
+      :format-value="['YYYY-MM-01 00:00:00', 'YYYY-MM-01 23:59:59']"
       :title="['请选择开始日期', '请选择结束日期']"
       :closeOnClickOverlay="[true, false]"
     />
@@ -343,6 +405,12 @@ const form = reactive({
 
 你可以透传[UpForm](https://uiadmin.net/uview-plus/components/form.html#form-props)组件的所有属性。
 
+## Form插槽
+
+| 插槽名  | 说明       | 作用域 |
+| ------- | ---------- | ------ |
+| default | 表单项列表 | —      |
+
 ## FormItem属性
 
 | 属性名    | 说明       | 类型                                                                                                                                                                              | 可选值                                                                                    | 默认值 |
@@ -351,6 +419,13 @@ const form = reactive({
 | icon      | 表单项图标 | `string`                                                                                                                                                                          | [图标集](https://uiadmin.net/uview-plus/components/icon.html#%E5%9B%BE%E6%A0%87%E9%9B%86) | —      |
 
 除了上述属性，你还可以透传[UpFormItem](https://uiadmin.net/uview-plus/components/form.html#form-item-props)组件的所有属性。
+
+## FormItem插槽
+
+| 插槽名  | 说明           | 作用域 |
+| ------- | -------------- | ------ |
+| default | 表单项内容     | —      |
+| right   | 表单项右侧内容 | —      |
 
 ### itemType可选值
 

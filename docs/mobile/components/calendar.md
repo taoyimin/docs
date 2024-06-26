@@ -59,19 +59,27 @@ const value = ref('')
 
 ## 属性
 
-| 属性名            | 说明                                                                                                          | 类型                        | 可选值 | 默认值     |
-| ----------------- | ------------------------------------------------------------------------------------------------------------- | --------------------------- | ------ | ---------- |
-| v-model           | 选中的日期                                                                                                    | `string`                    | —      | —          |
-| v-model:show      | 是否显示                                                                                                      | `boolean`                   | —      | false      |
-| mode              | 选择日期模式                                                                                                  | `single` `multiple` `range` | —      | single     |
-| format            | 日期回显的格式，不会影响v-model绑定的日期格式                                                                 | `string`                    | —      | YYYY-MM-DD |
-| suffix            | v-model绑定日期的后缀，不会影响日期的回显。例如v-model绑定的日期格式需要带时分秒，可以设置该属性为' 00:00:00' | `string`                    | —      | —          |
-| showMode          | 选择器模式，[详见](#选择器模式)                                                                               | `picker` `popup`            | —      | picker     |
-| placeholder       | 未选择时的占位符                                                                                              | `string`                    | —      | 请选择     |
-| placeholder-style | 指定placeholder的样式                                                                                         | `StyleValue`                | —      | —          |
-| placeholder-class | 指定placeholder的样式类，注意页面或组件的style中写了scoped时，需要使用深度选择器:deep()                       | `string`                    | —      | —          |
+| 属性名            | 说明                                                                                    | 类型                        | 可选值 | 默认值     |
+| ----------------- | --------------------------------------------------------------------------------------- | --------------------------- | ------ | ---------- |
+| v-model           | 选中的日期                                                                              | `string`                    | —      | —          |
+| v-model:show      | 是否显示                                                                                | `boolean`                   | —      | false      |
+| mode              | 选择日期模式                                                                            | `single` `multiple` `range` | —      | single     |
+| format            | 日期回显的格式，不会影响v-model绑定的日期格式                                           | `string`                    | —      | YYYY-MM-DD |
+| formatValue       | v-model绑定日期的格式，不会影响日期的回显                                               | `string`                    | —      | YYYY-MM-DD |
+| showMode          | 选择器模式，[详见](#选择器模式)                                                         | `picker` `popup`            | —      | picker     |
+| disabled          | 是否禁用                                                                                | `boolean`                   | —      | false      |
+| value-style       | 指定回显文字的样式                                                                      | `StyleValue`                | —      | —          |
+| placeholder       | 未选择时的占位符                                                                        | `string`                    | —      | 请选择     |
+| placeholder-style | 指定placeholder的样式                                                                   | `StyleValue`                | —      | —          |
+| placeholder-class | 指定placeholder的样式类，注意页面或组件的style中写了scoped时，需要使用深度选择器:deep() | `string`                    | —      | —          |
 
 除了上述属性，你还可以透传[UpCalendar](https://uiadmin.net/uview-plus/components/calendar.html#props)组件的所有属性。
+
+## 事件
+
+| 事件名 | 说明       | 类型       | 可选值            | 默认值 |
+| ------ | ---------- | ---------- | ----------------- | ------ |
+| change | 选中值改变 | `Function` | `(value) => void` | —      |
 
 ## 插槽
 
@@ -95,13 +103,21 @@ export interface CalendarProps {
    */
   format?: string
   /**
-   * v-model绑定日期的后缀，不会影响日期的回显。例如v-model绑定的日期格式需要带时分秒，可以设置该属性为' 00:00:00'
+   * v-model绑定日期的格式，不会影响日期的回显
    */
-  suffix?: string
+  formatValue?: string
   /**
    * 显示模式，popup为纯弹窗，需要自己实现打开/关闭、回显等逻辑
    */
   showMode?: 'picker' | 'popup'
+  /**
+   * 是否禁用
+   */
+  disabled?: boolean
+  /**
+   * 指定回显文字的样式
+   */
+  valueStyle?: StyleValue
   /**
    * 未选择时的占位符
    */
@@ -118,6 +134,10 @@ export interface CalendarProps {
    * 自定义根节点样式
    */
   customStyle?: StyleValue
+}
+
+export type CalendarEmits = {
+  change: [value: string[] | string]
 }
 ```
 
