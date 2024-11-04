@@ -1,9 +1,0 @@
-{
-  "name": "@szxc/apis",
-  "version": "1.0.0",
-  "private": true,
-  "type": "module",
-  "description": "通用接口库",
-  "main": "index.ts",
-  "license": "ISC"
-}

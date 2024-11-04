@@ -1,9 +1,0 @@
-{
-  "name": "@szxc/http",
-  "version": "1.0.0",
-  "private": true,
-  "type": "module",
-  "description": "网络请求库",
-  "main": "index.ts",
-  "license": "ISC"
-}
