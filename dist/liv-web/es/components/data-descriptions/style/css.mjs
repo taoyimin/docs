@@ -1,0 +1,13 @@
+import 'element-plus/es/components/base/style/css';
+import 'element-plus/es/components/descriptions/style/css';
+import 'element-plus/es/components/descriptions-item/style/css';
+import 'element-plus/es/components/tag/style/css';
+import 'element-plus/es/components/link/style/css';
+import 'element-plus/es/components/button/style/css';
+import 'element-plus/es/components/image/style/css';
+import 'element-plus/es/components/icon/style/css';
+import '../../base/style/css.mjs';
+import '../../qr-code/style/css.mjs';
+import '../../verify/style/css.mjs';
+import 'liv-web/theme-chalk/liv-data-descriptions.css';
+//# sourceMappingURL=css.mjs.map

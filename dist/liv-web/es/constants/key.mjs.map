@@ -1,0 +1,1 @@
+{"version":3,"file":"key.mjs","sources":["../../../../packages/constants/key.ts"],"sourcesContent":["/**\r\n * 组件库全局注册key\r\n */\r\nexport const INSTALLED_KEY = Symbol('INSTALLED_KEY');\r\n"],"names":[],"mappings":"AAGa,MAAA,aAAA,GAAgB,OAAO,eAAe;;;;"}

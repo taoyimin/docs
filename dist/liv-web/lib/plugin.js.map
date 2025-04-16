@@ -1,0 +1,1 @@
+{"version":3,"file":"plugin.js","sources":["../../../packages/liv-web/plugin.ts"],"sourcesContent":["import { LivRemove } from '@liv-web/components/remove';\r\n\r\nimport type { Plugin } from 'vue';\r\n\r\nexport default [LivRemove] as Plugin[];\r\n"],"names":["LivRemove"],"mappings":";;;;;;AAIA,cAAe,CAACA,eAAS,CAAA;;;;"}

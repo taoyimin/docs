@@ -1,0 +1,12 @@
+import 'element-plus/es/components/base/style/css';
+import 'element-plus/es/components/descriptions/style/css';
+import 'element-plus/es/components/descriptions-item/style/css';
+import 'element-plus/es/components/tag/style/css';
+import 'element-plus/es/components/link/style/css';
+import 'element-plus/es/components/button/style/css';
+import 'element-plus/es/components/image/style/css';
+import 'element-plus/es/components/icon/style/css';
+import 'liv-web/es/components/base/style/css';
+import 'liv-web/es/components/qr-code/style/css';
+import 'liv-web/es/components/verify/style/css';
+import 'liv-web/theme-chalk/liv-data-descriptions.css';
